@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import logo from '@/public/logo.svg'
 import { useModal } from '@/app/context/ModalContext'
-import { register, login } from '@/app/lib/api'
+import { register, login } from '../lib/api'
 
 /* ─── shared styles ──────────────────────────────────────── */
 const inp =
