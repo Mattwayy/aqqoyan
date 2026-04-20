@@ -1,10 +1,16 @@
 import Image from "next/image"
 import logo from "@/public/logo.svg"
+import FooterAuthLink from "./FooterAuthLink"
 
 const navLinks = [
-  "Главная", "О форуме", "Форум в цифрах",
-  "Почему стоит участвовать", "Кому полезен форум",
-  "Спикеры", "Партнёры", "Программа",
+  { label: "Главная",                  href: "/#home"        },
+  { label: "О форуме",                 href: "/#about"       },
+  { label: "Форум в цифрах",           href: "/#stats"       },
+  { label: "Почему стоит участвовать", href: "/#participate" },
+  { label: "Кому полезен форум",       href: "/#benefits"    },
+  { label: "Спикеры",                  href: "/#speakers"    },
+  { label: "Партнёры",                 href: "/#partners"    },
+  { label: "Программа",                href: "/#programs"    },
 ]
 
 export default function Footer() {
@@ -35,16 +41,14 @@ export default function Footer() {
           <p className="font-bold text-sm sm:text-base">Карта сайта</p>
           <ul className="grid grid-cols-2 sm:grid-cols-1 gap-1.5 sm:gap-2">
             {navLinks.map((link) => (
-              <li key={link}>
-                <a href="#" className="text-xs sm:text-sm text-white/70 hover:text-[#5fe3e3] transition-colors flex items-center gap-2 before:content-['•'] before:text-white/40">
-                  {link}
+              <li key={link.href}>
+                <a href={link.href} className="text-xs sm:text-sm text-white/70 hover:text-[#5fe3e3] transition-colors flex items-center gap-2 before:content-['•'] before:text-white/40">
+                  {link.label}
                 </a>
               </li>
             ))}
             <li className="mt-1 col-span-2 sm:col-span-1">
-              <a href="#" className="text-xs sm:text-sm text-white/70 hover:text-[#5fe3e3] transition-colors flex items-center gap-2 before:content-['•'] before:text-white/40">
-                Вход / Личный кабинет
-              </a>
+              <FooterAuthLink />
             </li>
           </ul>
         </div>
@@ -54,19 +58,35 @@ export default function Footer() {
           <div className="flex flex-col gap-2">
             <p className="font-bold text-sm sm:text-base">Контакты</p>
             <div className="flex flex-col gap-1 text-xs sm:text-sm text-white/60">
-              <span>Email:</span>
-              <span>Телефон:</span>
-              <span>Адрес:</span>
+              {process.env.NEXT_PUBLIC_CONTACT_EMAIL && (
+                <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}
+                  className="hover:text-[#5fe3e3] transition-colors">
+                  {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
+                </a>
+              )}
+              {process.env.NEXT_PUBLIC_CONTACT_PHONE && (
+                <a href={`tel:${process.env.NEXT_PUBLIC_CONTACT_PHONE}`}
+                  className="hover:text-[#5fe3e3] transition-colors">
+                  {process.env.NEXT_PUBLIC_CONTACT_PHONE}
+                </a>
+              )}
+              {process.env.NEXT_PUBLIC_CONTACT_ADDRESS && (
+                <span>{process.env.NEXT_PUBLIC_CONTACT_ADDRESS}</span>
+              )}
             </div>
           </div>
 
           <div className="flex flex-col gap-3">
             <p className="font-bold text-sm sm:text-base">Соцсети</p>
             <div className="flex items-center gap-3">
-              <a href="#" className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-white/20 hover:border-[#5fe3e3] hover:bg-white/5 transition-all">
+              <a href={process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? '#'}
+                target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-white/20 hover:border-[#5fe3e3] hover:bg-white/5 transition-all">
                 <Image src="/socials/instagram.svg" alt="Instagram" width={20} height={20} className="object-contain" />
               </a>
-              <a href="#" className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-white/20 hover:border-[#5fe3e3] hover:bg-white/5 transition-all">
+              <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL ?? '#'}
+                target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-white/20 hover:border-[#5fe3e3] hover:bg-white/5 transition-all">
                 <Image src="/socials/linkedin.svg" alt="LinkedIn" width={20} height={20} className="object-contain" />
               </a>
             </div>

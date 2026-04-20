@@ -12,7 +12,7 @@ const audienceData = [
 
 const Benefits = () => {
   return (
-    <div className="w-full py-12 md:py-20 bg-white">
+    <div id="benefits" className="w-full py-12 md:py-20 bg-white">
       <div className="max-w-6xl mx-auto flex flex-col gap-8 md:gap-12 px-4">
 
         <div className="text-center">

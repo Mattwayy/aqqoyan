@@ -3,16 +3,16 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 import logo from '@/public/logo.svg'
 import { useModal } from '@/app/context/ModalContext'
-import { register, login } from '../lib/api'
 
 /* ─── shared styles ──────────────────────────────────────── */
 const inp =
-  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#2f4fa3] transition-colors disabled:opacity-50'
+  'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#2f4fa3] transition-colors disabled:opacity-50'
 
 const submitBtn =
-  'mt-2 h-12 w-full rounded-xl bg-gradient-to-r from-[#2f4fa3] to-[#5fe3e3] text-white font-medium text-base hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2'
+  'h-11 w-full rounded-xl bg-gradient-to-r from-[#2f4fa3] to-[#5fe3e3] text-white font-medium text-base hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2'
 
 function Spinner() {
   return (
@@ -25,33 +25,31 @@ function Spinner() {
 
 function ErrorBox({ message }: { message: string }) {
   return (
-    <p className="rounded-lg bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-600">
+    <p className="rounded-lg bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-600 col-span-2">
       {message}
     </p>
   )
 }
 
-/* ─── Modal header ───────────────────────────────────────── */
-function ModalHeader() {
-  return (
-    <div
-      className="relative flex h-28 items-center justify-center overflow-hidden rounded-t-2xl"
-      style={{ backgroundImage: 'url(/hero-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
-    >
-      <div className="absolute inset-0 bg-[#0d1640]/60" />
-      <Image src={logo} alt="logo" width={190} height={36} className="relative z-10 h-9 w-auto" />
-    </div>
-  )
-}
-
-/* ─── Register view ──────────────────────────────────────── */
-function RegisterView({ onSuccess, onLogin }: { onSuccess: () => void; onLogin: () => void }) {
+/* ─── Register view — FULL SCREEN ────────────────────────── */
+function RegisterView({
+  onSuccess,
+  onLogin,
+  onClose,
+  modalRef,
+}: {
+  onSuccess: () => void
+  onLogin: () => void
+  onClose: () => void
+  modalRef: React.RefObject<HTMLDivElement | null>
+}) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [agree1, setAgree1] = useState(false)
   const [agree2, setAgree2] = useState(false)
   const [fields, setFields] = useState({
     name: '', surname: '', phone: '', email: '',
+    password: '', confirmPassword: '',
     scope: '', org: '', position: '',
     country: '', city: '', lang: '', comment: '',
   })
@@ -68,6 +66,18 @@ function RegisterView({ onSuccess, onLogin }: { onSuccess: () => void; onLogin: 
       setError('Пожалуйста, заполните обязательные поля.')
       return
     }
+    if (!fields.password) {
+      setError('Введите пароль.')
+      return
+    }
+    if (fields.password.length < 6) {
+      setError('Пароль должен содержать минимум 6 символов.')
+      return
+    }
+    if (fields.password !== fields.confirmPassword) {
+      setError('Пароли не совпадают.')
+      return
+    }
     if (!agree1) {
       setError('Необходимо согласие на обработку персональных данных.')
       return
@@ -75,7 +85,25 @@ function RegisterView({ onSuccess, onLogin }: { onSuccess: () => void; onLogin: 
 
     setLoading(true)
     try {
-      await register({ ...fields, agreePersonal: agree1, agreeMedia: agree2 })
+      const { confirmPassword: _, ...payload } = fields
+
+      // 1. Создаём аккаунт через /api/register
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, agreePersonal: agree1, agreeMedia: agree2 }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message ?? 'Ошибка регистрации.')
+
+      // 2. Сразу входим через next-auth
+      const result = await signIn('credentials', {
+        email: fields.email,
+        password: fields.password,
+        redirect: false,
+      })
+      if (result?.error) throw new Error('Регистрация прошла, но войти не удалось. Попробуйте войти вручную.')
+
       onSuccess()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка регистрации.')
@@ -85,72 +113,106 @@ function RegisterView({ onSuccess, onLogin }: { onSuccess: () => void; onLogin: 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <h2 className="text-2xl font-bold text-[#121e52] text-center mb-2">Регистрация</h2>
+    <div ref={modalRef} className="fixed inset-0 z-50 flex flex-col bg-[#f0f2f7] overflow-y-auto">
 
-      <input className={inp} placeholder="Имя*" value={fields.name} onChange={set('name')} disabled={loading} />
-      <input className={inp} placeholder="Фамилия*" value={fields.surname} onChange={set('surname')} disabled={loading} />
-
-      <div className="grid grid-cols-2 gap-3">
-        <input className={inp} placeholder="Номер телефона*" value={fields.phone} onChange={set('phone')} disabled={loading} />
-        <input className={inp} type="email" placeholder="Почта*" value={fields.email} onChange={set('email')} disabled={loading} />
-      </div>
-
-      <input className={inp} placeholder="Сфера деятельности" value={fields.scope} onChange={set('scope')} disabled={loading} />
-      <input className={inp} placeholder="Организация" value={fields.org} onChange={set('org')} disabled={loading} />
-      <input className={inp} placeholder="Должность" value={fields.position} onChange={set('position')} disabled={loading} />
-
-      <div className="grid grid-cols-3 gap-3">
-        <input className={inp} placeholder="Страна" value={fields.country} onChange={set('country')} disabled={loading} />
-        <input className={inp} placeholder="Город" value={fields.city} onChange={set('city')} disabled={loading} />
-        <input className={inp} placeholder="Язык" value={fields.lang} onChange={set('lang')} disabled={loading} />
-      </div>
-
-      <textarea
-        className={`${inp} resize-none h-24`}
-        placeholder="Комментарий / дополнительная информация"
-        value={fields.comment}
-        onChange={set('comment')}
-        disabled={loading}
-      />
-
-      <div className="flex flex-col gap-3 mt-1">
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" checked={agree1} onChange={e => setAgree1(e.target.checked)}
-            disabled={loading} className="mt-0.5 h-4 w-4 shrink-0 accent-[#2f4fa3] cursor-pointer" />
-          <span className="text-sm text-slate-600 leading-snug">
-            Я согласен(а) с обработкой персональных данных
-          </span>
-        </label>
-
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" checked={agree2} onChange={e => setAgree2(e.target.checked)}
-            disabled={loading} className="mt-0.5 h-4 w-4 shrink-0 accent-[#2f4fa3] cursor-pointer" />
-          <span className="text-xs text-slate-500 leading-relaxed">
-            *Регистрируясь, гость подтверждает своё согласие на проведение фото-,
-            видео- и аудиосъёмки с его участием в рамках мероприятия, а также на
-            использование его изображения и/или голоса организатором без ограничения
-            по сроку и территории, включая публикацию в СМИ, на интернет-ресурсах,
-            в социальных сетях и рекламных материалах.
-          </span>
-        </label>
-      </div>
-
-      {error && <ErrorBox message={error} />}
-
-      <button type="submit" className={submitBtn} disabled={loading}>
-        {loading && <Spinner />}
-        {loading ? 'Отправка...' : 'Зарегистрироваться'}
-      </button>
-
-      <p className="text-center text-sm text-slate-500">
-        Есть аккаунт?{' '}
-        <button type="button" onClick={onLogin} disabled={loading}
-          className="text-[#2f4fa3] font-medium hover:underline disabled:opacity-50">
-          Войти
+      {/* ── Top bar ── */}
+      <div
+        className="relative shrink-0 flex items-center justify-between px-6 sm:px-10 h-16"
+        style={{ backgroundImage: 'url(/hero-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="absolute inset-0 bg-[#0d1640]/70" />
+        <Image src={logo} alt="logo" width={160} height={30} className="relative z-10 h-8 w-auto" />
+        <button
+          onClick={onClose}
+          className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/30 transition"
+          aria-label="Закрыть"
+        >
+          ✕
         </button>
-      </p>
-    </form>
+      </div>
+
+      {/* ── Form ── */}
+      <div className="flex-1 flex items-center justify-center px-4 py-6">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-3xl flex flex-col gap-3"
+        >
+          <h2 className="text-2xl font-bold text-[#121e52] text-center mb-1">
+            Регистрация
+          </h2>
+
+          {/* All fields in 2-col grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+            <input className={inp} placeholder="Имя*"           value={fields.name}     onChange={set('name')}     disabled={loading} />
+            <input className={inp} placeholder="Фамилия*"        value={fields.surname}  onChange={set('surname')}  disabled={loading} />
+
+            <input className={inp} placeholder="Номер телефона*" value={fields.phone}    onChange={set('phone')}    disabled={loading} />
+            <input className={inp} type="email" placeholder="Почта*" value={fields.email} onChange={set('email')}  disabled={loading} />
+
+            <input className={inp} type="password" placeholder="Пароль*"
+              value={fields.password} onChange={set('password')} disabled={loading} autoComplete="new-password" />
+            <input className={inp} type="password" placeholder="Подтверждение пароля*"
+              value={fields.confirmPassword} onChange={set('confirmPassword')} disabled={loading} autoComplete="new-password" />
+
+            <input className={inp} placeholder="Сфера деятельности" value={fields.scope}     onChange={set('scope')}    disabled={loading} />
+            <input className={inp} placeholder="Организация"         value={fields.org}       onChange={set('org')}      disabled={loading} />
+
+            <input className={inp} placeholder="Должность"  value={fields.position} onChange={set('position')} disabled={loading} />
+            <input className={inp} placeholder="Страна"     value={fields.country}  onChange={set('country')}  disabled={loading} />
+
+            <input className={inp} placeholder="Город"  value={fields.city} onChange={set('city')} disabled={loading} />
+            <input className={inp} placeholder="Язык"   value={fields.lang} onChange={set('lang')} disabled={loading} />
+
+            <textarea
+              className={`${inp} resize-none h-16 sm:col-span-2`}
+              placeholder="Комментарий / дополнительная информация"
+              value={fields.comment}
+              onChange={set('comment')}
+              disabled={loading}
+            />
+
+            {/* Checkboxes */}
+            <div className="sm:col-span-2 flex flex-col gap-2">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" checked={agree1} onChange={e => setAgree1(e.target.checked)}
+                  disabled={loading} className="mt-0.5 h-4 w-4 shrink-0 accent-[#2f4fa3] cursor-pointer" />
+                <span className="text-sm text-slate-600 leading-snug">
+                  Я согласен(а) с обработкой персональных данных
+                </span>
+              </label>
+
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" checked={agree2} onChange={e => setAgree2(e.target.checked)}
+                  disabled={loading} className="mt-0.5 h-4 w-4 shrink-0 accent-[#2f4fa3] cursor-pointer" />
+                <span className="text-xs text-slate-500 leading-relaxed">
+                  *Регистрируясь, гость подтверждает своё согласие на проведение фото-,
+                  видео- и аудиосъёмки с его участием в рамках мероприятия, а также на
+                  использование его изображения и/или голоса организатором без ограничения
+                  по сроку и территории, включая публикацию в СМИ, на интернет-ресурсах,
+                  в социальных сетях и рекламных материалах.
+                </span>
+              </label>
+            </div>
+
+            {error && <ErrorBox message={error} />}
+
+            <button type="submit" className={`${submitBtn} sm:col-span-2`} disabled={loading}>
+              {loading && <Spinner />}
+              {loading ? 'Отправка...' : 'Зарегистрироваться'}
+            </button>
+
+            <p className="sm:col-span-2 text-center text-sm text-slate-500">
+              Есть аккаунт?{' '}
+              <button type="button" onClick={onLogin} disabled={loading}
+                className="text-[#2f4fa3] font-medium hover:underline disabled:opacity-50">
+                Войти
+              </button>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }
 
@@ -206,7 +268,12 @@ function LoginView({ onSuccess, onRegister }: { onSuccess: () => void; onRegiste
 
     setLoading(true)
     try {
-      await login({ email, password })
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
+      if (!result?.ok) throw new Error('Неверный email или пароль.')
       onSuccess()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка входа.')
@@ -253,17 +320,64 @@ function LoginView({ onSuccess, onRegister }: { onSuccess: () => void; onRegiste
   )
 }
 
+/* ─── Compact modal wrapper (login / success) ────────────── */
+function CompactModal({
+  children,
+  onClose,
+  modalRef,
+}: {
+  children: React.ReactNode
+  onClose: () => void
+  modalRef: React.RefObject<HTMLDivElement | null>
+}) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      onClick={onClose}
+      aria-modal="true"
+      role="dialog"
+    >
+      <div
+        ref={modalRef}
+        className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-[#f0f2f7] shadow-2xl"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Header with hero bg */}
+        <div
+          className="relative flex h-24 items-center justify-center overflow-hidden rounded-t-2xl"
+          style={{ backgroundImage: 'url(/hero-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+          <div className="absolute inset-0 bg-[#0d1640]/60" />
+          <Image src={logo} alt="logo" width={190} height={36} className="relative z-10 h-9 w-auto" />
+        </div>
+
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition"
+          aria-label="Закрыть"
+        >
+          ✕
+        </button>
+
+        <div className="p-8">{children}</div>
+      </div>
+    </div>
+  )
+}
+
 /* ─── Main modal ─────────────────────────────────────────── */
 export default function AuthModal() {
   const { isOpen, view, closeModal, setView } = useModal()
   const router = useRouter()
   const modalRef = useRef<HTMLDivElement>(null)
 
+  // Scroll lock
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
+  // Escape key
   useEffect(() => {
     if (!isOpen) return
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal() }
@@ -271,6 +385,7 @@ export default function AuthModal() {
     return () => window.removeEventListener('keydown', onKey)
   }, [isOpen, closeModal])
 
+  // Tab trap
   useEffect(() => {
     if (!isOpen || !modalRef.current) return
     const sel = 'a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])'
@@ -295,36 +410,25 @@ export default function AuthModal() {
     router.push('/profile')
   }
 
+  // ── Register — full screen ──────────────────────────────
+  if (view === 'register') {
+    return (
+      <RegisterView
+        onSuccess={() => setView('success')}
+        onLogin={() => setView('login')}
+        onClose={closeModal}
+        modalRef={modalRef}
+      />
+    )
+  }
+
+  // ── Login / Success — compact card ─────────────────────
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
-      onClick={closeModal}
-      aria-modal="true"
-      role="dialog"
-    >
-      <div
-        ref={modalRef}
-        className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-[#f0f2f7] shadow-2xl"
-        onClick={e => e.stopPropagation()}
-      >
-        <ModalHeader />
-
-        <button onClick={closeModal}
-          className="absolute top-4 right-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition"
-          aria-label="Закрыть">
-          ✕
-        </button>
-
-        <div className="p-8">
-          {view === 'register' && (
-            <RegisterView onSuccess={() => setView('success')} onLogin={() => setView('login')} />
-          )}
-          {view === 'success' && <SuccessView onProfile={handleProfile} />}
-          {view === 'login' && (
-            <LoginView onSuccess={handleProfile} onRegister={() => setView('register')} />
-          )}
-        </div>
-      </div>
-    </div>
+    <CompactModal onClose={closeModal} modalRef={modalRef}>
+      {view === 'success' && <SuccessView onProfile={handleProfile} />}
+      {view === 'login' && (
+        <LoginView onSuccess={handleProfile} onRegister={() => setView('register')} />
+      )}
+    </CompactModal>
   )
 }

@@ -33,7 +33,7 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="w-full py-20 bg-white">
+    <section id="partners" className="w-full py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 flex flex-col gap-10">
         <h2 className="text-3xl sm:text-4xl font-bold text-[#121e52] text-center">
           Партнёры 2026

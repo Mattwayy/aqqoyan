@@ -2,7 +2,7 @@ import RegisterButton from "./RegisterButton"
 
 export default function Hero() {
   return (
-    <section className="hero w-full text-white limiter">
+    <section id="home" className="hero w-full text-white">
       <div className="mx-auto max-w-6xl px-4 flex flex-col items-center text-center gap-8 md:gap-12">
 
         {/* TITLE */}

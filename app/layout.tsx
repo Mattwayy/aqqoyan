@@ -3,7 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "./context/ModalContext";
 import AuthModal from "./components/AuthModal";
-import ScrollToHash from './components/scrollToHash'; 
+import ScrollToHash from './components/scrollToHash';
+import { Suspense } from 'react';
+import AutoOpenModal from './components/AutoOpenModal';
+import Providers from './components/Providers';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,11 +34,16 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ModalProvider>
-          {children}
-          <AuthModal />
-          <ScrollToHash /> {/* 👈 добавьте компонент сюда */}
-        </ModalProvider>
+        <Providers>
+          <ModalProvider>
+            {children}
+            <AuthModal />
+            <ScrollToHash />
+            <Suspense fallback={null}>
+              <AutoOpenModal />
+            </Suspense>
+          </ModalProvider>
+        </Providers>
       </body>
     </html>
   );

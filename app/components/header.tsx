@@ -4,19 +4,21 @@ import LoginButton from "./LoginButton"
 
 export default function Header() {
   return (
-    <div className="header flex items-center w-full max-w-[1200px] flex-grow justify-between absolute top-0 z-10 pt-14">
-      <Image
-        className="relative w-53.75 h-10 aspect-[5.38]"
-        alt="logo vector"
-        src={logo}
-        width={215}
-        height={40}
-      />
-      <LoginButton className="login-button inline-flex h-10 items-center justify-center gap-2.5 px-10 py-3 relative flex-[0_0_auto] bg-[#f7f9fc0a] rounded-xl border border-solid border-[#f7f9fc59] backdrop-blur-[2px] backdrop-brightness-100 [-webkit-backdrop-filter:blur(2px)_brightness(100%)] cursor-pointer">
-        <span className="relative w-fit -mt-1.25 -mb-0.75 font-['Inter-Medium',Helvetica] font-medium text-[#f7f9fc] text-xl text-right tracking-[0] leading-6 whitespace-nowrap">
-          Вход / Регистрация
-        </span>
-      </LoginButton>
-    </div>
+    <header className="header absolute top-0 left-0 right-0 z-10 w-full">
+      <div className="max-w-6xl mx-auto px-5 h-20 flex items-center justify-between">
+        <Image
+          alt="logo"
+          src={logo}
+          width={215}
+          height={40}
+          className="h-8 sm:h-10 w-auto"
+        />
+        <LoginButton className="login-button inline-flex h-10 items-center justify-center gap-2.5 px-6 sm:px-10 py-3 bg-white/5 rounded-xl border border-white/35 backdrop-blur-sm cursor-pointer hover:bg-white/10 transition-colors">
+          <span className="font-medium text-[#f7f9fc] text-sm sm:text-base whitespace-nowrap">
+            Вход / Регистрация
+          </span>
+        </LoginButton>
+      </div>
+    </header>
   )
 }

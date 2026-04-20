@@ -29,7 +29,7 @@ const benefits = [
 
 const Participate = () => {
   return (
-    <section className="py-12 md:py-24 bg-gradient-to-b from-white to-emerald-50/30">
+    <section id="participate" className="py-12 md:py-24 bg-gradient-to-b from-white to-emerald-50/30">
       <div className="mx-auto px-4 max-w-6xl">
 
         <div className="text-center mb-8 md:mb-16">

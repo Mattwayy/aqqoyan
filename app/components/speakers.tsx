@@ -123,7 +123,7 @@ const Speakers = () => {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <section className="w-full py-12 md:py-20 bg-[#f7f9fc]">
+    <section id="speakers" className="w-full py-12 md:py-20 bg-[#f7f9fc]">
       <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8 md:gap-10">
 
         {/* Title */}

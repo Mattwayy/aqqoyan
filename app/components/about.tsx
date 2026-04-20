@@ -2,7 +2,7 @@ import RegisterButton from "./RegisterButton"
 
 export default function About() {
   return (
-    <section className="w-full py-12 md:py-20 bg-white text-[#121e52]">
+    <section id="about" className="w-full py-12 md:py-20 bg-white text-[#121e52]">
       <div className="mx-auto max-w-4xl px-5 flex flex-col items-center text-center gap-6 md:gap-10">
 
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
