@@ -195,9 +195,7 @@ export default async function ProfilePage() {
               <p className="text-xs font-semibold text-[#121e52] tracking-wide uppercase">
                 Электронный бейдж
               </p>
-              <p className="text-[10px] text-slate-400 font-mono break-all px-2">
-                {qrSource}
-              </p>
+             
             </div>
           </div>
         </div>
