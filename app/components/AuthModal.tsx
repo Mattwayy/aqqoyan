@@ -7,6 +7,8 @@ import { signIn } from 'next-auth/react'
 import logo from '@/public/logo.svg'
 import { useModal } from '@/app/context/ModalContext'
 
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
+
 /* ─── shared styles ──────────────────────────────────────── */
 const inp =
   'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#2f4fa3] transition-colors disabled:opacity-50'
@@ -87,8 +89,12 @@ function RegisterView({
     try {
       const { confirmPassword: _, ...payload } = fields
 
-      // 1. Создаём аккаунт через /api/register
-      const res = await fetch('/api/register', {
+      if (!API_BASE_URL || API_BASE_URL === 'mock') {
+        throw new Error('Не задан NEXT_PUBLIC_API_URL для регистрации.')
+      }
+
+      // 1. Создаём аккаунт в внешнем backend API
+      const res = await fetch(`${API_BASE_URL}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...payload, agreePersonal: agree1, agreeMedia: agree2 }),
