@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home":     "Home",
+    "profile":  "My Profile",
+    "programs": "Forum Program"
+  },
+  "profile": {
+    "title":        "My Profile",
+    "participant":  "Forum Participant",
+    "position":     "Position not specified",
+    "org":          "Organization not specified",
+    "role":         "Participant",
+    "badge":        "Digital Badge / QR"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "Nothing here yet"
+  },
+  "menu": {
+    "settings": "Settings",
+    "logout":   "Log out",
+    "back":     "Back"
+  },
+  "settings": {
+    "theme": "Theme",
+    "lang":  "Language"
+  },
+  "footer": {
+    "home":     "Home",
+    "about":    "About Forum",
+    "speakers": "Speakers",
+    "partners": "Partners",
+    "programs": "Program",
+    "login":    "Sign In / Cabinet",
+    "sitemap":  "Site Map",
+    "contacts": "Contacts",
+    "socials":  "Social Media",
+    "terms":    "Terms of Service",
+    "privacy":  "Privacy Policy"
+  },
+  "hero": {
+    "year": "2026",
+    "date": "May 21, 2026",
+    "location": "Astana, Astana International Financial Centre",
+    "subtitle": "International platform for dialogue, partnerships and exchange of practices in Islamic finance and business.",
+    "register": "Register",
+    "viewProgram": "View Program"
+  },
+  "about": {
+    "title": "About the Forum",
+    "body1": "Islamic Finance and Business Forum 2026 is an international forum bringing together experts, business representatives, financial institutions, regulators, investors and the professional community to discuss current issues in Islamic finance and business.",
+    "body2": "The Forum creates a space for substantive dialogue, sharing practical experience, establishing new partnerships and discussing key challenges and opportunities in the industry."
+  },
+  "stats": {
+    "title": "Forum in Numbers",
+    "subtitle": "Key results",
+    "forumName": "Islamic Finance and Business Forum 2025",
+    "items": [
+      { "value": "250+", "label": "participants from CIS,\nEurope and\nMiddle East" },
+      { "value": "24.4M+", "label": "people —\ntotal monthly\nmedia reach" },
+      { "value": "4 languages", "label": "of coverage — Russian,\nKazakh, Uzbek and\nEnglish" },
+      { "value": "70%", "label": "of participants —\nrepresentatives of banks,\ninvestment funds and business" }
+    ]
+  },
+  "benefits": {
+    "title": "Who Benefits from the Forum",
+    "items": [
+      { "title": "Financial Institutions", "description": "Banks, Islamic financial organizations, investment and consulting structures." },
+      { "title": "Business", "description": "Companies and entrepreneurs interested in partnerships, growth and new instruments." },
+      { "title": "Regulators and Development Institutions", "description": "Representatives of government, quasi-government and industry structures." },
+      { "title": "Experts and Academic Communities", "description": "Researchers, educators, analysts and specialists in relevant fields." },
+      { "title": "Investors", "description": "Representatives of the investment community and structures working in adjacent areas." },
+      { "title": "Professional Communities", "description": "All those working at the intersection of finance, business, Islamic economics and sustainable development." }
+    ]
+  },
+  "participate": {
+    "title": "Why Attend",
+    "items": [
+      { "title": "Relevant Expertise", "description": "A practical perspective on trends, challenges and opportunities in Islamic finance and business." },
+      { "title": "Strong Speakers", "description": "Access to insights from industry leaders, regulators, international experts and practitioners." },
+      { "title": "New Partnerships", "description": "The opportunity to establish business connections and discuss joint initiatives." },
+      { "title": "Regional and International Dialogue", "description": "Discussion of issues relevant to Kazakhstan, Central Asia and the international market." },
+      { "title": "Practical Value", "description": "Cases, solutions and ideas that can be applied in professional practice." },
+      { "title": "Visibility for Business and Institutions", "description": "A platform for positioning, partnership and professional presence in the industry." }
+    ]
+  },
+  "speakers": {
+    "title": "Speakers",
+    "year": "2026",
+    "showAll": "View all speakers ↓",
+    "hideAll": "Hide speakers ↑"
+  },
+  "partners": {
+    "title": "Partners 2026"
+  },
+  "programs": {
+    "title": "Forum Program",
+    "subtitle": "The program of Islamic Finance and Business Forum 2026 includes plenary sessions, thematic panels, expert presentations, practical discussions and professional networking opportunities."
+  }
+}

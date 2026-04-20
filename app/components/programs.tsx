@@ -30,17 +30,17 @@ const allItems = rows.flat()
 
 function ProgramCard({ item }: { item: typeof allItems[0] }) {
   return (
-    <div className="flex flex-col gap-2 sm:gap-3 rounded-2xl border border-slate-100 bg-white p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div className="flex flex-col gap-2 sm:gap-3 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 sm:p-6 shadow-sm dark:shadow-slate-900/50 hover:shadow-md transition-shadow duration-200">
       <Image src={item.icon} alt={item.title} width={40} height={40} className="object-contain w-9 h-9 sm:w-12 sm:h-12 mx-auto" />
-      <span className="text-xs text-slate-400 font-medium text-center">{item.time}</span>
-      <p className="text-sm sm:text-base font-bold text-[#121e52] leading-snug text-center">{item.title}</p>
+      <span className="text-xs text-slate-400 dark:text-slate-500 font-medium text-center">{item.time}</span>
+      <p className="text-sm sm:text-base font-bold text-[#121e52] dark:text-white leading-snug text-center">{item.title}</p>
       {item.description && (
-        <p className="text-xs sm:text-sm text-slate-500 leading-relaxed text-center">{item.description}</p>
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed text-center">{item.description}</p>
       )}
       {item.extra && (
-        <div className="flex flex-col gap-1 border-t border-slate-100 pt-3 mt-1">
-          <p className="text-sm font-bold text-[#121e52] text-center">{item.extra.title}</p>
-          <p className="text-xs text-slate-500 leading-relaxed text-center">{item.extra.description}</p>
+        <div className="flex flex-col gap-1 border-t border-slate-100 dark:border-slate-700 pt-3 mt-1">
+          <p className="text-sm font-bold text-[#121e52] dark:text-white text-center">{item.extra.title}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">{item.extra.description}</p>
         </div>
       )}
     </div>
@@ -49,17 +49,17 @@ function ProgramCard({ item }: { item: typeof allItems[0] }) {
 
 export default function Programs() {
   return (
-    <section id="programs" className="w-full py-12 md:py-20 bg-white">
+    <section id="programs" className="w-full py-12 md:py-20 bg-white dark:bg-slate-900">
       <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8 md:gap-12">
 
         {/* Header */}
         <div className="flex flex-col items-center gap-3 md:gap-4 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#121e52]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#121e52] dark:text-white">
             Программа форума
           </h2>
-          <p className="max-w-2xl text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="max-w-2xl text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             В программе{" "}
-            <span className="font-semibold text-slate-800">Islamic Finance and Business Forum 2026</span>
+            <span className="font-semibold text-slate-800 dark:text-white">Islamic Finance and Business Forum 2026</span>
             {" "}— пленарные сессии, тематические панели, экспертные выступления,
             практические обсуждения и возможности для профессионального нетворкинга.
           </p>
@@ -80,12 +80,12 @@ export default function Programs() {
               <div className="grid grid-cols-3">
                 {row.map((_, colIndex) => (
                   <div key={colIndex} className="flex items-center">
-                    <div className={`flex-1 h-px ${colIndex === 0 ? "bg-transparent" : "bg-slate-200"}`} />
+                    <div className={`flex-1 h-px ${colIndex === 0 ? "bg-transparent" : "bg-slate-200 dark:bg-slate-700"}`} />
                     <div className="flex flex-col items-center gap-1">
                       <div className="w-2 h-2 rounded-full bg-slate-300" />
                       <div className="w-2 h-2 rounded-full bg-[#5fe3e3]" />
                     </div>
-                    <div className={`flex-1 h-px ${colIndex === 2 ? "bg-transparent" : "bg-slate-200"}`} />
+                    <div className={`flex-1 h-px ${colIndex === 2 ? "bg-transparent" : "bg-slate-200 dark:bg-slate-700"}`} />
                   </div>
                 ))}
               </div>

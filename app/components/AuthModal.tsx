@@ -46,30 +46,42 @@ function RegisterView({
   modalRef: React.RefObject<HTMLDivElement | null>
 }) {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError]   = useState('')
+  const [submitted, setSubmitted] = useState(false)   // показывать подсветку только после первой попытки отправки
   const [agree1, setAgree1] = useState(false)
   const [agree2, setAgree2] = useState(false)
   const [fields, setFields] = useState({
     name: '', surname: '', phone: '', email: '',
     password: '', confirmPassword: '',
     scope: '', org: '', position: '',
-    country: '', city: '', lang: '', comment: '',
+    country: '', city: '', lang: '',
   })
+
+  // org, position, country, city, scope, lang — необязательны; confirmPassword проверяется отдельно
+  const requiredTextFields: (keyof typeof fields)[] = [
+    'name', 'surname', 'phone', 'email', 'password', 'confirmPassword',
+  ]
+  const isEmpty = (key: keyof typeof fields) => submitted && requiredTextFields.includes(key) && !fields[key].trim()
+  const pwMismatch = submitted && !!fields.confirmPassword && fields.password !== fields.confirmPassword
 
   const set = (key: keyof typeof fields) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setFields(f => ({ ...f, [key]: e.target.value }))
 
+  // динамический класс инпута: красная граница если поле пустое/неверно после submit
+  const fi = (key: keyof typeof fields) => {
+    const invalid = isEmpty(key) || (key === 'confirmPassword' && pwMismatch)
+    return `${inp}${invalid ? ' !border-red-400 bg-red-50/40' : ''}`
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
+    setSubmitted(true)
     setError('')
 
-    if (!fields.name || !fields.surname || !fields.phone || !fields.email) {
-      setError('Пожалуйста, заполните обязательные поля.')
-      return
-    }
-    if (!fields.password) {
-      setError('Введите пароль.')
+    const emptyAny = requiredTextFields.some(k => !fields[k].trim())
+    if (emptyAny) {
+      setError('Пожалуйста, заполните все обязательные поля.')
       return
     }
     if (fields.password.length < 6) {
@@ -80,8 +92,8 @@ function RegisterView({
       setError('Пароли не совпадают.')
       return
     }
-    if (!agree1) {
-      setError('Необходимо согласие на обработку персональных данных.')
+    if (!agree1 || !agree2) {
+      setError('Необходимо отметить оба согласия.')
       return
     }
 
@@ -150,48 +162,42 @@ function RegisterView({
           {/* All fields in 2-col grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
-            <input className={inp} placeholder="Имя*"           value={fields.name}     onChange={set('name')}     disabled={loading} />
-            <input className={inp} placeholder="Фамилия*"        value={fields.surname}  onChange={set('surname')}  disabled={loading} />
+            <input className={fi('name')}    placeholder="Имя*"              value={fields.name}            onChange={set('name')}            disabled={loading} />
+            <input className={fi('surname')} placeholder="Фамилия*"           value={fields.surname}         onChange={set('surname')}         disabled={loading} />
 
-            <input className={inp} placeholder="Номер телефона*" value={fields.phone}    onChange={set('phone')}    disabled={loading} />
-            <input className={inp} type="email" placeholder="Почта*" value={fields.email} onChange={set('email')}  disabled={loading} />
+            <input className={fi('phone')}   placeholder="Номер телефона*"    value={fields.phone}           onChange={set('phone')}           disabled={loading} />
+            <input className={fi('email')}   type="email" placeholder="Почта*" value={fields.email}          onChange={set('email')}           disabled={loading} />
 
-            <input className={inp} type="password" placeholder="Пароль*"
+            <input className={fi('password')} type="password" placeholder="Пароль*"
               value={fields.password} onChange={set('password')} disabled={loading} autoComplete="new-password" />
-            <input className={inp} type="password" placeholder="Подтверждение пароля*"
+            <input
+              className={fi('confirmPassword')}
+              type="password" placeholder="Подтверждение пароля*"
               value={fields.confirmPassword} onChange={set('confirmPassword')} disabled={loading} autoComplete="new-password" />
 
-            <input className={inp} placeholder="Сфера деятельности" value={fields.scope}     onChange={set('scope')}    disabled={loading} />
-            <input className={inp} placeholder="Организация"         value={fields.org}       onChange={set('org')}      disabled={loading} />
+            <input className={fi('org')}      placeholder="Организация"        value={fields.org}             onChange={set('org')}             disabled={loading} />
+            <input className={fi('position')} placeholder="Должность"          value={fields.position}        onChange={set('position')}        disabled={loading} />
 
-            <input className={inp} placeholder="Должность"  value={fields.position} onChange={set('position')} disabled={loading} />
-            <input className={inp} placeholder="Страна"     value={fields.country}  onChange={set('country')}  disabled={loading} />
+            <input className={fi('country')}  placeholder="Страна"             value={fields.country}         onChange={set('country')}         disabled={loading} />
+            <input className={fi('city')}     placeholder="Город"              value={fields.city}            onChange={set('city')}            disabled={loading} />
 
-            <input className={inp} placeholder="Город"  value={fields.city} onChange={set('city')} disabled={loading} />
-            <input className={inp} placeholder="Язык"   value={fields.lang} onChange={set('lang')} disabled={loading} />
-
-            <textarea
-              className={`${inp} resize-none h-16 sm:col-span-2`}
-              placeholder="Комментарий / дополнительная информация"
-              value={fields.comment}
-              onChange={set('comment')}
-              disabled={loading}
-            />
+            <input className={fi('scope')}    placeholder="Сфера деятельности" value={fields.scope}           onChange={set('scope')}           disabled={loading} />
+            <input className={fi('lang')}     placeholder="Язык"               value={fields.lang}            onChange={set('lang')}            disabled={loading} />
 
             {/* Checkboxes */}
             <div className="sm:col-span-2 flex flex-col gap-2">
-              <label className="flex items-start gap-3 cursor-pointer">
+              <label className={`flex items-start gap-3 cursor-pointer rounded-lg px-2 py-1 transition-colors ${submitted && !agree1 ? 'bg-red-50 outline outline-1 outline-red-300' : ''}`}>
                 <input type="checkbox" checked={agree1} onChange={e => setAgree1(e.target.checked)}
                   disabled={loading} className="mt-0.5 h-4 w-4 shrink-0 accent-[#2f4fa3] cursor-pointer" />
-                <span className="text-sm text-slate-600 leading-snug">
+                <span className={`text-sm leading-snug ${submitted && !agree1 ? 'text-red-600' : 'text-slate-600'}`}>
                   Я согласен(а) с обработкой персональных данных
                 </span>
               </label>
 
-              <label className="flex items-start gap-3 cursor-pointer">
+              <label className={`flex items-start gap-3 cursor-pointer rounded-lg px-2 py-1 transition-colors ${submitted && !agree2 ? 'bg-red-50 outline outline-1 outline-red-300' : ''}`}>
                 <input type="checkbox" checked={agree2} onChange={e => setAgree2(e.target.checked)}
                   disabled={loading} className="mt-0.5 h-4 w-4 shrink-0 accent-[#2f4fa3] cursor-pointer" />
-                <span className="text-xs text-slate-500 leading-relaxed">
+                <span className={`text-xs leading-relaxed ${submitted && !agree2 ? 'text-red-600' : 'text-slate-500'}`}>
                   *Регистрируясь, гость подтверждает своё согласие на проведение фото-,
                   видео- и аудиосъёмки с его участием в рамках мероприятия, а также на
                   использование его изображения и/или голоса организатором без ограничения

@@ -33,9 +33,9 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section id="partners" className="w-full py-20 bg-white">
+    <section id="partners" className="w-full py-20 bg-white dark:bg-slate-900">
       <div className="max-w-6xl mx-auto px-4 flex flex-col gap-10">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#121e52] text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#121e52] dark:text-white text-center">
           Партнёры 2026
         </h2>
 
@@ -43,9 +43,9 @@ const Partners = () => {
           {partners.map((partner) => (
             <div
               key={partner.alt}
-              className="flex flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+              className="flex flex-col gap-5 rounded-2xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 p-8 shadow-sm dark:shadow-slate-900/50"
             >
-              <span className="text-sm font-bold text-[#121e52] uppercase tracking-wide">
+              <span className="text-sm font-bold text-[#121e52] dark:text-white uppercase tracking-wide">
                 {partner.name}
               </span>
 
@@ -59,7 +59,7 @@ const Partners = () => {
                 />
               </div>
 
-              <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-line">
+              <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed whitespace-pre-line">
                 {partner.description}
               </p>
             </div>

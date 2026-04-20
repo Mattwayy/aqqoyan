@@ -25,17 +25,17 @@ const stats = [
 
 const Stats = () => {
   return (
-    <div id="stats" className="w-full py-12 md:py-20">
+    <div id="stats" className="w-full py-12 md:py-20 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8 md:gap-12">
 
         {/* Header */}
         <div className="text-center flex flex-col gap-3">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#121e52]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#121e52] dark:text-white">
             Форум в цифрах
           </h2>
-          <p className="text-sm sm:text-base text-[#121e52]/70">
+          <p className="text-sm sm:text-base text-[#121e52]/70 dark:text-slate-400">
             Ключевые результаты{" "}
-            <span className="font-semibold text-[#121e52]">
+            <span className="font-semibold text-[#121e52] dark:text-slate-200">
               Islamic Finance and Business Forum 2025
             </span>
           </p>

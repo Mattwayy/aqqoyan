@@ -91,13 +91,13 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
       </div>
 
       {/* Name */}
-      <p className="font-bold text-[#121e52] text-sm leading-snug mt-1">
+      <p className="font-bold text-[#121e52] dark:text-white text-sm leading-snug mt-1">
         {speaker.name}
       </p>
 
       {/* Country badge */}
       {speaker.country && (
-        <div className="flex items-center gap-1 w-fit rounded-full border border-[#2f4fa3]/30 bg-[#eef1fb] px-2 py-0.5">
+        <div className="flex items-center gap-1 w-fit rounded-full border border-[#2f4fa3]/30 bg-[#eef1fb] dark:bg-[#2f4fa3]/20 px-2 py-0.5">
           <Image
             src="/speakers/badge.svg"
             alt=""
@@ -112,7 +112,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
       )}
 
       {/* Role */}
-      <p className="text-[11px] text-slate-500 leading-snug">
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
         {speaker.role}
       </p>
     </div>
@@ -123,7 +123,7 @@ const Speakers = () => {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <section id="speakers" className="w-full py-12 md:py-20 bg-[#f7f9fc]">
+    <section id="speakers" className="w-full py-12 md:py-20 bg-[#f7f9fc] dark:bg-slate-900">
       <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8 md:gap-10">
 
         {/* Title */}
