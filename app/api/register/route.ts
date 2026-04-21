@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getUserByEmail, createUser } from '@/app/lib/serverDb'
+import { postEmail } from '../resend/resend'
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
@@ -33,6 +34,9 @@ export async function POST(req: Request) {
         _password: password,
         qrPayload,
       })
+        postEmail({ email, name }).catch(err => {
+        console.error('[Email] Ошибка отправки в мок-режиме:', err)
+      })
 
       return NextResponse.json(
         { id: user.id, name: user.name, email: user.email },
@@ -52,6 +56,11 @@ export async function POST(req: Request) {
     })
 
     const data = await res.json()
+     if (res.status === 201) {
+      postEmail({ email, name }).catch(err => {
+        console.error('[Email] Ошибка отправки:', err)
+      })
+    }
     return NextResponse.json(data, { status: res.status })
 
   } catch (err) {
