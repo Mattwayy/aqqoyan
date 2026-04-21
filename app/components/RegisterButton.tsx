@@ -1,22 +1,23 @@
 'use client'
-
-import { useModal } from '@/app/context/ModalContext'
-
+import { useTranslations } from 'next-intl'
+import { useModal } from '../context/ModalContext'
 
 interface Props {
   className?: string
   children?: React.ReactNode
-}
+} 
 
 export default function RegisterButton({ className, children }: Props) {
+  const t = useTranslations('RegisterButton')
   const { openModal } = useModal()
+
   return (
     <button
       type="button"
       onClick={() => openModal('register')}
       className={className}
     >
-      {children ?? 'Зарегистрироваться'}
+      {children ?? t('label')}
     </button>
   )
 }

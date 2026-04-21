@@ -8,7 +8,16 @@ import type { NextRequest } from 'next/server'
  */
 export default function proxy(request: NextRequest) {
   // next-auth v4 кладёт JWT в один из этих cookie в зависимости от окружения
-  // temporarily disabled for testing
+  const sessionToken =
+    request.cookies.get('next-auth.session-token')?.value ??
+    request.cookies.get('__Secure-next-auth.session-token')?.value
+
+  if (!sessionToken) {
+    const url = new URL('/', request.url)
+    url.searchParams.set('login', '1')
+    return NextResponse.redirect(url)
+  }
+
   return NextResponse.next()
 }
 
