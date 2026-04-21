@@ -1,36 +1,35 @@
+'use client'
+
+import { useTranslations } from 'next-intl'
 import Image from "next/image"
 import RegisterButton from "./RegisterButton"
 
-const audienceData = [
-  { icon: "/ben1.svg", title: "Финансовые институты", description: "Банки, исламские финансовые организации, инвестиционные и консалтинговые структуры." },
-  { icon: "/ben2.svg", title: "Бизнес", description: "Компании и предприниматели, заинтересованные в партнерствах, развитии и новых инструментах." },
-  { icon: "/ben3.svg", title: "Регуляторы и институты развития", description: "Представители государственных, квазигосударственных и отраслевых структур." },
-  { icon: "/ben4.png", title: "Эксперты и академические сообщества", description: "Исследователи, преподаватели, аналитики и специалисты профильных направлений." },
-  { icon: "/ben5.svg", title: "Инвесторы", description: "Представители инвестиционного сообщества и структур, работающих в смежных направлениях." },
-  { icon: "/ben6.svg", title: "Профессиональные сообщества", description: "Все, кто работает на стыке финансов, бизнеса, исламской экономики и устойчивого развития." },
-]
+const icons = ['/ben1.svg', '/ben2.svg', '/ben3.svg', '/ben4.png', '/ben5.svg', '/ben6.svg']
 
 const Benefits = () => {
+  const t = useTranslations('benefits')
+  const items = t.raw('items') as Array<{ title: string; description: string }>
+
   return (
     <div id="benefits" className="w-full py-12 md:py-20 bg-white dark:bg-slate-900">
       <div className="max-w-6xl mx-auto flex flex-col gap-8 md:gap-12 px-4">
 
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 dark:text-white">
-            Кому полезен форум
+            {t('title')}
           </h2>
         </div>
 
         {/* 2 cols on mobile, 3 on lg */}
         <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
-          {audienceData.map((item, index) => (
+          {items.map((item, index) => (
             <div
               key={index}
               className="group flex flex-col items-center gap-2 sm:gap-4 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 sm:p-6 shadow-sm dark:shadow-slate-900/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#2f4fa3]/30 dark:bg-slate-800"
             >
               <div className="flex h-10 w-10 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-[#121e52]/5 dark:bg-white/5">
                 <Image
-                  src={item.icon}
+                  src={icons[index]}
                   alt={item.title}
                   width={40}
                   height={40}

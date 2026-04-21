@@ -1,40 +1,19 @@
+'use client'
+
+import { useTranslations } from 'next-intl'
 import RegisterButton from "./RegisterButton"
 
-const benefits = [
-  {
-    title: "Актуальная экспертиза",
-    description: "Практический взгляд на тренды, вызовы и возможности в сфере исламских финансов и бизнеса.",
-  },
-  {
-    title: "Сильные спикеры",
-    description: "Доступ к мнению лидеров отрасли, регуляторов, международных экспертов и практиков.",
-  },
-  {
-    title: "Новые партнерства",
-    description: "Возможность установить деловые контакты и обсудить совместные инициативы.",
-  },
-  {
-    title: "Региональный и международный диалог",
-    description: "Обсуждение вопросов, значимых для Казахстана, Центральной Азии и международного рынка.",
-  },
-  {
-    title: "Практическая польза",
-    description: "Кейсы, решения и идеи, которые можно применять в профессиональной деятельности.",
-  },
-  {
-    title: "Видимость для бизнеса и институтов",
-    description: "Площадка для позиционирования, партнерства и профессионального присутствия в отрасли.",
-  },
-]
-
 const Participate = () => {
+  const t = useTranslations('participate')
+  const benefits = t.raw('items') as Array<{ title: string; description: string }>
+
   return (
     <section id="participate" className="py-12 md:py-24 bg-gradient-to-b from-white to-emerald-50/30 dark:from-slate-900 dark:to-slate-800">
       <div className="mx-auto px-4 max-w-6xl">
 
         <div className="text-center mb-8 md:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-800 dark:text-white">
-            Почему стоит участвовать
+            {t('title')}
           </h2>
         </div>
 

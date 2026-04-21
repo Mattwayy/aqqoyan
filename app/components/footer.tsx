@@ -1,16 +1,21 @@
+'use client'
+
+import { useTranslations } from 'next-intl'
 import Image from "next/image"
 import logo from "@/public/logo.svg"
 import FooterAuthLink from "./FooterAuthLink"
 
-const navLinks = [
-  { label: "Главная",    href: "/#home"     },
-  { label: "О форуме",   href: "/#about"    },
-  { label: "Спикеры",    href: "/#speakers" },
-  { label: "Партнёры",   href: "/#partners" },
-  { label: "Программа",  href: "/#programs" },
-]
-
 export default function Footer({ hideAuthLink }: { hideAuthLink?: boolean }) {
+  const t = useTranslations('footer')
+
+  const navLinks = [
+    { label: t('home'),     href: '/#home'     },
+    { label: t('about'),    href: '/#about'    },
+    { label: t('speakers'), href: '/#speakers' },
+    { label: t('partners'), href: '/#partners' },
+    { label: t('programs'), href: '/#programs' },
+  ]
+
   return (
     <footer className="w-full bg-[#0d1640] text-[#f7f9fc]">
       {/* Logo bar */}
@@ -19,7 +24,7 @@ export default function Footer({ hideAuthLink }: { hideAuthLink?: boolean }) {
       </div>
 
       {/* Main content */}
-      <div className="max-w-6xl mx-auto px-5 py-8 md:py-12 flex flex-col gap-8 md:gap-12">
+      <div className="max-w-6xl mx-auto px-5 py-8 md:py-12 flex flex-col gap-8 md:gap-12 social-container">
 
         {/* Brand — full width */}
         <div className="flex flex-col gap-3 max-w-sm">
@@ -28,17 +33,33 @@ export default function Footer({ hideAuthLink }: { hideAuthLink?: boolean }) {
             <span className="text-[#5fe3e3]">2026</span>
           </p>
           <p className="text-sm text-white/60 leading-relaxed">
-            — международная площадка для обмена опытом, экспертного диалога
-            и развития партнерств в сфере исламских финансов и бизнеса.
+              {t('text')}
           </p>
         </div>
 
+        {/* Socials — mobile only (shown before the 2-col grid) */}
+        <div className="flex md:flex-col gap-3 md:hidden social-container__socials">
+          <p className="font-bold text-sm">{t('socials')}</p>
+          <div className="flex items-center gap-3">
+            <a href={process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? '#'}
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/20 hover:border-[#5fe3e3] hover:bg-white/5 transition-all">
+              <Image src="/socials/instagram.svg" alt="Instagram" width={20} height={20} className="object-contain" />
+            </a>
+            <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL ?? '#'}
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/20 hover:border-[#5fe3e3] hover:bg-white/5 transition-all">
+              <Image src="/socials/linkedin.svg" alt="LinkedIn" width={20} height={20} className="object-contain" />
+            </a>
+          </div>
+        </div>
+
         {/* Site map + Contacts — always 2 columns */}
-        <div className="grid grid-cols-2 gap-8 md:gap-12">
+        <div className="grid grid-cols-2 gap-8 md:gap-12 social-container__contacts">
 
           {/* Site map */}
           <div className="flex flex-col gap-3">
-            <p className="font-bold text-sm sm:text-base">Карта сайта</p>
+            <p className="font-bold text-sm sm:text-base">{t('sitemap')}</p>
             <ul className="flex flex-col gap-1.5 sm:gap-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
@@ -58,10 +79,10 @@ export default function Footer({ hideAuthLink }: { hideAuthLink?: boolean }) {
             </ul>
           </div>
 
-          {/* Contacts + Socials */}
+          {/* Contacts + Socials (desktop) */}
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <p className="font-bold text-sm sm:text-base">Контакты</p>
+              <p className="font-bold text-sm sm:text-base">{t('contacts')}</p>
               <div className="flex flex-col gap-1 text-xs sm:text-sm text-white/60">
                 {process.env.NEXT_PUBLIC_CONTACT_EMAIL && (
                   <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}
@@ -81,8 +102,9 @@ export default function Footer({ hideAuthLink }: { hideAuthLink?: boolean }) {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <p className="font-bold text-sm sm:text-base">Соцсети</p>
+            {/* Socials — desktop only (inside Contacts column) */}
+            <div className="hidden md:flex flex-col gap-3">
+              <p className="font-bold text-sm sm:text-base">{t('socials')}</p>
               <div className="flex items-center gap-3">
                 <a href={process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? '#'}
                   target="_blank" rel="noopener noreferrer"
@@ -104,10 +126,10 @@ export default function Footer({ hideAuthLink }: { hideAuthLink?: boolean }) {
       {/* Bottom bar */}
       <div className="max-w-6xl mx-auto px-5 py-4 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-2">
         <a href="/terms" className="text-xs text-white/40 hover:text-white/70 transition-colors underline underline-offset-2">
-          Пользовательское соглашение
+          {t('terms')}
         </a>
         <a href="/privacy" className="text-xs text-white/40 hover:text-white/70 transition-colors underline underline-offset-2">
-          Политика конфиденциальности
+          {t('privacy')}
         </a>
       </div>
     </footer>

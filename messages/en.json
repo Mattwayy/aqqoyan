@@ -16,6 +16,9 @@
     "title": "Notifications",
     "empty": "Nothing here yet"
   },
+  "RegisterButton": {
+    "label": "Signup"
+  },
   "menu": {
     "settings": "Settings",
     "logout":   "Log out",
@@ -36,7 +39,9 @@
     "contacts": "Contacts",
     "socials":  "Social Media",
     "terms":    "Terms of Service",
-    "privacy":  "Privacy Policy"
+    "privacy":  "Privacy Policy",
+    "text": "— international platform for experience exchange, expert dialogue and partnership development in the field of Islamic finance and business."
+
   },
   "hero": {
     "year": "2026",
@@ -84,6 +89,32 @@
       { "title": "Visibility for Business and Institutions", "description": "A platform for positioning, partnership and professional presence in the industry." }
     ]
   },
+  "organizers": {
+    "title": "Organizers",
+    "items": [
+      {
+        "name": "TIDAM",
+        "img": "/organizers/tidam-dark.svg",
+        "imgDark": "/organizers/tidam-light.png",
+        "url": "https://tidam.co/ru",
+        "description": "is the strategic organizer of the forum, specializing in promoting large-scale business events and building professional communications in finance and business."
+      },
+      {
+        "name": "AIFB Association",
+        "img": "/organizers/aifb-dark.svg",
+        "imgDark": "/organizers/aifb-light.png",
+        "url": "https://aifb.kz/",
+        "description": "brings together professionals, experts and organizations developing the Islamic financial ecosystem in Kazakhstan and the region."
+      },
+      {
+        "name": "AIFC",
+        "img": "/organizers/aifc-dark.svg",
+        "imgDark": "/organizers/aifc-light.svg",
+        "url": "https://aifc.kz/",
+        "description": "is the region's leading financial hub, providing a favorable environment for the development of Islamic finance, attracting investment and fostering international cooperation."
+      }
+    ]
+  },
   "speakers": {
     "title": "Speakers",
     "year": "2026",
@@ -95,6 +126,145 @@
   },
   "programs": {
     "title": "Forum Program",
-    "subtitle": "The program of Islamic Finance and Business Forum 2026 includes plenary sessions, thematic panels, expert presentations, practical discussions and professional networking opportunities."
+    "subtitle": "The program of Islamic Finance and Business Forum 2026 includes plenary sessions, thematic panels, expert presentations, practical discussions and professional networking opportunities.",
+     "cofieeBreak": "Coffee Break",
+    "lunch": "Lunch",
+    "greeting": "Welcome speech",
+    "firesideChatLabel": "Fireside Chat",
+    "firesideChatText": "Current state of the Islamic finance and business market.",
+    "panelSessionLabel": "Panel Session",
+    "panelSessionText": "Regulatory dialogues and future development steps.",
+    "presentation": "Presentation",
+    "showcaseLabel": "Showcase Session",
+    "showcaseText1": "Practical experience in the Islamic financial market: implemented cases.",
+    "showcaseText2": "Investment solutions and tools in Islamic finance.",
+    "presentationLabel": "Presentation of the Analytical Report",
+    "presentationText": "Strategies for promoting Central Asia as a unified investment direction.",
+     "panelSessionText2": "International experience and investment attraction."
+  },
+  "header": {
+    "loginBtn": "Sign In / Register"
+  },
+  "auth": {
+    "register": {
+      "title": "Registration",
+      "name": "First name*",
+      "surname": "Last name*",
+      "phone": "Phone number*",
+      "email": "Email*",
+      "password": "Password*",
+      "confirmPassword": "Confirm password*",
+      "org": "Organization",
+      "position": "Position",
+      "country": "Country",
+      "city": "City",
+      "scope": "Field of activity",
+      "lang": "Language",
+      "agree1": "I agree to the processing of personal data",
+      "agree2": "By registering, the guest confirms consent to photo, video and audio recording of their participation in the event, as well as the use of their image and/or voice by the organizer without limitation on time and territory, including publication in media, online resources, social networks and promotional materials.",
+      "submit": "Register",
+      "submitting": "Submitting...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "errRequired": "Please fill in all required fields.",
+      "errPasswordMin": "Password must be at least 6 characters.",
+      "errPasswordMismatch": "Passwords do not match.",
+      "errAgree": "Both agreements must be accepted.",
+      "errNoApi": "NEXT_PUBLIC_API_URL is not configured.",
+      "errGeneric": "Registration error.",
+      "errLoginAfter": "Registration successful, but sign-in failed. Please try signing in manually."
+    },
+    "login": {
+      "title": "Sign In",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "submit": "Sign In",
+      "submitting": "Signing in...",
+      "forgotPassword": "Forgot password",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register",
+      "errRequired": "Please enter your email and password.",
+      "errInvalid": "Invalid email or password.",
+      "errGeneric": "Sign-in error."
+    },
+    "success": {
+      "title": "Thank you for registering!",
+      "body1": "Your participant profile has been created.",
+      "body2": "Additional information will be sent to the email address provided.",
+      "goToProfile": "Go to my profile",
+      "noticeLabel": "IMPORTANT:",
+      "noticeBody": "From April 15 to May 31, 2026, scheduled maintenance work will be carried out on the runway. The runway will be temporarily closed daily from 10:00 to 18:00 local time."
+    }
+
+  },
+  "terms": {
+    "backToHome": "Home",
+    "title": "Terms of Use",
+    "subtitle": "Islamic Finance and Business Forum 2026",
+    "lastUpdated": "Last updated: April 2026",
+    "section1": {
+      "title": "1. General Provisions",
+      "content": "This User Agreement (hereinafter referred to as the 'Agreement') governs the relationship between the organizers of the Islamic Finance and Business Forum 2026 (hereinafter referred to as the 'Organizer' or 'Site Administration') and the individual using the website and registration system (hereinafter referred to as the 'User'). By using the website and completing the forum participant registration procedure, the User confirms that they have read, understood, and accept all terms of this Agreement in full. If the User does not agree with the terms of the Agreement, they must cease using the website."
+    },
+    "section2": {
+      "title": "2. Terms of Use",
+      "content": "The website is intended solely for participant registration and providing information about the forum. The User agrees to use the website in good faith and not to take any actions that could disrupt the normal operation of the resource or infringe upon the rights of third parties. Posting knowingly false information, attempting unauthorized access to other participants' data, or using automated scripts to interact with the website without explicit permission from the Administration is prohibited. The Administration reserves the right to restrict or terminate the User's access to the website in case of violation of this Agreement without prior notice."
+    },
+    "section3": {
+      "title": "3. Registration and Account",
+      "content": "To participate in the forum, the User must register by providing accurate personal data: first name, last name, phone number, email address, position, organization, country, city, and preferred language of communication. The User is responsible for maintaining the confidentiality of their account credentials (login and password) and for all actions taken under their account. In case of loss or compromise of the password, the User must immediately notify the Administration. Each User may have only one account; creating duplicate accounts is not allowed. Upon successful registration, the participant is assigned a unique QR code for identification at the event."
+    },
+    "section4": {
+      "title": "4. Liability of the Parties",
+      "content": "The Administration makes all reasonable efforts to ensure the uninterrupted operation of the website, but does not guarantee its absolute availability and is not liable for temporary technical failures caused by circumstances beyond its control. The Administration is not responsible for the content of information provided by the User during registration. The User is solely responsible for the accuracy of the data entered. The aggregate liability of the Administration for any disputes related to the use of the website is limited to the extent established by applicable law."
+    },
+    "section5": {
+      "title": "5. Changes to Terms",
+      "content": "The Administration reserves the right to unilaterally amend this Agreement. The current version is always available on this page. Continued use of the website after the publication of changes constitutes the User's unconditional acceptance of the new terms. If the User does not agree with the changes made, they may delete their account at any time by sending a corresponding request to the Administration. This Agreement is governed by the applicable laws of the country where the forum is held. All disputes shall be resolved through negotiations, and if no agreement is reached, in the competent court at the Organizer's location."
+    }
+  },
+  
+  "privacy": {
+    "backToHome": "Home",
+    "title": "Privacy Policy",
+    "subtitle": "Islamic Finance and Business Forum 2026",
+    "lastUpdated": "Last updated: April 2026",
+    "dataItems": {
+      "item1": "First and last name",
+      "item2": "Mobile phone number",
+      "item3": "Email address",
+      "item4": "Position",
+      "item5": "Organization / workplace",
+      "item6": "Field of activity",
+      "item7": "Country and city of residence / work",
+      "item8": "Preferred language of communication"
+    },
+    "section1": {
+      "title": "1. General Provisions",
+      "content": "This Privacy Policy (hereinafter referred to as the 'Policy') describes what personal data is collected by the Organizer of the Islamic Finance and Business Forum 2026 (hereinafter referred to as the 'Organizer'), for what purposes it is used, and how it is protected. The Policy applies to all users who have registered or are registering on the forum website. By registering on the website, the User gives explicit consent to the processing of their personal data under the terms described in this Policy."
+    },
+    "section2": {
+      "title": "2. What Data We Collect",
+      "intro": "During the forum participant registration process, the Organizer collects the following categories of personal data:",
+      "passwordNote": "The password is stored exclusively as a hash (irreversible cryptographic transformation) and cannot be recovered by the Organizer in plain text."
+    },
+    "section3": {
+      "title": "3. Purposes of Data Processing",
+      "content": "The collected personal data is used exclusively for the following purposes: identification and accreditation of the participant at the forum; generation and issuance of an electronic badge with a personal QR code, allowing quick verification of the participant at the entrance and at forum venues; informing about the program, schedule changes, and organizational matters; preparation of anonymized event statistics; compliance with applicable legal requirements. Transfer of data to third parties for commercial purposes without the User's consent is not carried out."
+    },
+    "section4": {
+      "title": "4. Data Storage and Protection",
+      "content": "Personal data is stored on secure servers using modern technical and organizational security measures: connection encryption (HTTPS/TLS), password hashing, access control to databases. Data is stored for the period necessary for the purposes of registration and holding the forum, as well as for the period provided by applicable legislation on archiving and reporting. After the expiration of the specified period, the data is deleted or anonymized."
+    },
+    "section5": {
+      "title": "5. Data Subject Rights",
+      "content": "The User has the right at any time to: request access to their personal data and obtain a copy; demand correction of inaccurate or outdated information; withdraw consent to data processing and demand its deletion (subject to restrictions established by law); file a complaint with the authorized body for personal data protection in their country of residence. To exercise the listed rights, the User sends a request to the contact details specified in section 6 of this Policy. The Organizer considers requests within a reasonable time, but no later than 30 calendar days from the date of receipt of the request."
+    },
+    "section6": {
+      "title": "6. Contacts",
+      "content": "For all questions related to the processing of personal data, as well as to exercise their rights as a data subject, the User may contact the Organizer via the email address indicated in the 'Contacts' section on the main page of the website, or through the official communication channels of the forum. The request must include the first name, last name, email address used during registration, and the essence of the request. The Organizer undertakes to maintain the confidentiality of such requests."
+    }
   }
+
+
 }

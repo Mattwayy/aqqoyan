@@ -12,11 +12,27 @@ html {
   --foreground: #171717;
 }
 
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+@media (min-width: 800px) {
+ .last-col {
+       width: fit-content;
+        left: 50%;
+        transform: translateX(50%)
+  }
+  .social-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .social-container__contacts {
+        flex-basis: 50%;
+      }
+  }
 }
 
 .main {
@@ -56,6 +72,13 @@ html {
     padding-top: 110px;
     padding-bottom: 60px;
   }
+    .social-container__socials {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+        
+      }
 }
 
 .card--1,

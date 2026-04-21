@@ -8,6 +8,7 @@ import Benefits from "./components/benefits"
 import Programs from "./components/programs"
 import Partners from "./components/partners"
 import Footer from "./components/footer"
+import Organizers from "./components/organizers"
 
 
 export default function Home() {
@@ -17,11 +18,12 @@ export default function Home() {
       <Hero />
       <About />
       <Stats />
+      <Organizers />
+          <Participate />
+       <Benefits />
       <Speakers />
-      <Programs />
-      <Participate />
-      <Benefits />
       <Partners />
+       <Programs />
       <Footer />
     </div>
   )

@@ -213,10 +213,75 @@ function DropdownMenu({ onClose }: { onClose: () => void }) {
   )
 }
 
+/* ── Desktop settings panel (fullscreen modal) ──────────── */
+function DesktopSettingsModal({ onClose }: { onClose: () => void }) {
+  const t     = useTranslations('settings')
+  const tMenu = useTranslations('menu')
+  const { isDark, toggleTheme, locale, setLocale } = useAppStore()
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-end">
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative mt-16 mr-6 w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 p-5 flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-bold text-[#121e52] dark:text-white">{tMenu('settings')}</h3>
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            <CloseIcon />
+          </button>
+        </div>
+
+        <div className="h-px bg-slate-100 dark:bg-slate-700" />
+
+        {/* Theme */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
+            {isDark ? <MoonIcon /> : <SunIcon />}
+            <span>{t('theme')}</span>
+          </div>
+          <button
+            onClick={toggleTheme}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isDark ? 'bg-[#2f4fa3]' : 'bg-slate-200'}`}
+          >
+            <span className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform ${isDark ? 'translate-x-6' : 'translate-x-1'}`} />
+          </button>
+        </div>
+
+        {/* Lang */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
+            <GlobeIcon />
+            <span>{t('lang')}</span>
+          </div>
+          <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600">
+            <button
+              onClick={() => setLocale('ru')}
+              className={`px-3 py-1 text-xs font-medium transition-colors ${locale === 'ru' ? 'bg-[#2f4fa3] text-white' : 'text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
+            >RU</button>
+            <button
+              onClick={() => setLocale('en')}
+              className={`px-3 py-1 text-xs font-medium transition-colors ${locale === 'en' ? 'bg-[#2f4fa3] text-white' : 'text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
+            >EN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SettingsIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    </svg>
+  )
+}
+
 /* ── ProfileHeader ──────────────────────────────────────── */
 export default function ProfileHeader() {
-  const [notifOpen, setNotifOpen] = useState(false)
-  const [menuOpen,  setMenuOpen]  = useState(false)
+  const [notifOpen,     setNotifOpen]     = useState(false)
+  const [menuOpen,      setMenuOpen]      = useState(false)
+  const [settingsOpen,  setSettingsOpen]  = useState(false)
   const t = useTranslations('nav')
 
   return (
@@ -244,6 +309,15 @@ export default function ProfileHeader() {
             <button onClick={() => setNotifOpen(true)} className="flex items-center justify-center w-9 h-9 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors" aria-label="Уведомления">
               <BellIcon />
             </button>
+            {/* Settings — desktop only */}
+            <button
+              onClick={() => setSettingsOpen(v => !v)}
+              className="hidden md:flex items-center justify-center w-9 h-9 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+              aria-label="Настройки"
+            >
+              <SettingsIcon />
+            </button>
+
             <button onClick={() => signOut({ callbackUrl: '/' })} className="hidden md:flex items-center justify-center w-9 h-9 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors" aria-label="Выйти">
               <LogoutIcon />
             </button>
@@ -258,7 +332,8 @@ export default function ProfileHeader() {
         </div>
       </header>
 
-      {notifOpen && <NotificationModal onClose={() => setNotifOpen(false)} />}
+      {notifOpen    && <NotificationModal      onClose={() => setNotifOpen(false)} />}
+      {settingsOpen && <DesktopSettingsModal  onClose={() => setSettingsOpen(false)} />}
     </>
   )
 }
