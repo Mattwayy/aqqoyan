@@ -46,17 +46,21 @@ export async function POST(req: Request) {
     }
 
     /* ── Real backend ─────────────────────────────────── */
+    // qrPayload — наше внутреннее поле, внешний бэкенд его не ожидает → не шлём
     const res = await fetch(`${BASE_URL}/api/register`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({
         name, surname, email, phone, password,
         org, position, scope, country, city, lang,
-        qrPayload,
       }),
     })
 
     const data = await res.json()
+
+    if (res.status !== 201) {
+      console.error('[register/prod] External API error:', res.status, JSON.stringify(data))
+    }
 
     if (res.status === 201) {
       sendWelcomeEmail({ email, name, surname })
