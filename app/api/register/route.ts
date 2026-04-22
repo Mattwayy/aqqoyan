@@ -46,14 +46,23 @@ export async function POST(req: Request) {
     }
 
     /* ── Real backend ─────────────────────────────────── */
-    // qrPayload — наше внутреннее поле, внешний бэкенд его не ожидает → не шлём
+    // Собираем только непустые поля — внешний API может отвергать undefined/null
+    const externalPayload: Record<string, string> = {
+      name, surname, email, phone, password,
+    }
+    if (org)      externalPayload.org      = org
+    if (position) externalPayload.position = position
+    if (scope)    externalPayload.scope    = scope
+    if (country)  externalPayload.country  = country
+    if (city)     externalPayload.city     = city
+    if (lang)     externalPayload.lang     = lang
+
+    console.log('[register/prod] Sending to external API:', JSON.stringify(externalPayload))
+
     const res = await fetch(`${BASE_URL}/api/register`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        name, surname, email, phone, password,
-        org, position, scope, country, city, lang,
-      }),
+      body:    JSON.stringify(externalPayload),
     })
 
     const data = await res.json()
