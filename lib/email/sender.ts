@@ -22,5 +22,6 @@ export async function sendWelcomeEmail(user: {
     throw new Error(`[email] Resend error: ${JSON.stringify(error)}`)
   }
 
+  console.log(`[email] Welcome email sent → ${user.email} (id: ${data?.id})`)
   return data
 }

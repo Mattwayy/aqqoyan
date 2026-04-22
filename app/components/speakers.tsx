@@ -16,7 +16,7 @@ interface Speaker {
 
 const initialSpeakers: Speaker[] = [
   {
-    img: "/speakers/ber.jpg",
+    img: "/speakers/ber.png",
     name: "Берик Заиров",
     nameEng: "Berik Zairov",
 
@@ -25,7 +25,7 @@ const initialSpeakers: Speaker[] = [
     roleEng: "CEO & Co-Founder of Mizan Islamic Finance",
   },
   {
-    img: "/speakers/lim.jpg",
+    img: "/speakers/lim.png",
     name: "Lim Say Cheong",
     nameEng: "Lim Say Cheong",
     country: "UAE",
@@ -33,7 +33,7 @@ const initialSpeakers: Speaker[] = [
     roleEng: "Chief Advisor on Digital Assets and Islamic Finance at ComTech Gold",
   },
   {
-    img: "/speakers/muf.jpg",
+    img: "/speakers/muf.png",
     name: "Mufti Ibrahim Essa",
     nameEng: "Mufti Ibrahim Essa",
     country: "Pakistan",
@@ -41,7 +41,7 @@ const initialSpeakers: Speaker[] = [
     roleEng: "Mufti. Shariah Compliance Expert in Islamic Finance",
   },
   {
-    img: "/speakers/mur.jpg",
+    img: "/speakers/mur.png",
     name: "Мурат Кылышбай",
     nameEng: "Murat Kylyshbay",
     country: "Kazakhstan",
@@ -65,7 +65,7 @@ const initialSpeakers: Speaker[] = [
     roleEng: "Head of Islamic Finance at AIFC",
   },
   {
-    img: "/speakers/bek.jpg",
+    img: "/speakers/bek.png",
     name: "Бексултан Ануаров",
     nameEng: "Beksultan Anuarov",
     country: "Kazakhstan",
@@ -73,7 +73,7 @@ const initialSpeakers: Speaker[] = [
     roleEng: "CEO of Paidax",
   },
   {
-    img: "/speakers/mar.jpg",
+    img: "/speakers/mar.png",
     name: "Маргарита Агабекова",
     nameEng: "Margarita Agabekova",
     country: "Kazakhstan",
@@ -81,7 +81,7 @@ const initialSpeakers: Speaker[] = [
     roleEng: "Deputy CEO of Kazakhstan Ijara Company",
   },
   {
-    img: "/speakers/lil.jpg",
+    img: "/speakers/lil.png",
     name: "Lilian Le Falher",
     nameEng: "Lilian Le Falher",
     country: "Bahrein",
@@ -89,7 +89,7 @@ const initialSpeakers: Speaker[] = [
     roleEng: "Founder and Managing Director of ISTRAT Advisory",
   },
     {
-    img: "/speakers/nur.jpg",
+    img: "/speakers/nur.png",
     name: "Нуржан Стамбакиев",
     nameEng: "Nurzhan Stambakiyev",
     country: "Kazakhstan",
@@ -103,7 +103,7 @@ const initialSpeakers: Speaker[] = [
 
 const moreSpeakers: Speaker[] = [
       {
-    img: "/speakers/aza.jpg",
+    img: "/speakers/aza.png",
     name: "Азат Отепбай",
     nameEng: "Azat Otepbay",
     country: "Kazakhstan",
@@ -111,7 +111,7 @@ const moreSpeakers: Speaker[] = [
     roleEng: " Deputy Chairman of the Association of Islamic Finance and Business of Kazakhstan (AIFB)",
   },
     {
-    img: "/speakers/tim.jpg",
+    img: "/speakers/tim.png",
     name: "Тимур Мусин",
     nameEng: "Timur Musin",
     country: "Kazakhstan",

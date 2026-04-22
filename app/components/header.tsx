@@ -16,9 +16,15 @@ function AuthButton() {
     return (
       <Link
         href="/profile"
-        className="login-button inline-flex h-10 items-center justify-center gap-2.5 px-6 sm:px-10 py-3 bg-white/5 rounded-xl border border-white/35 backdrop-blur-sm hover:bg-white/10 transition-colors"
+        className="login-button inline-flex h-10 items-center justify-center gap-2 px-3 sm:px-10 bg-white/5 rounded-xl border border-white/35 backdrop-blur-sm hover:bg-white/10 transition-colors"
       >
-        <span className="font-medium text-[#f7f9fc] text-sm sm:text-base whitespace-nowrap">
+        {/* Иконка профиля — всегда видна */}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-[#f7f9fc]">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        {/* Текст — только на sm+ */}
+        <span className="hidden sm:inline font-medium text-[#f7f9fc] text-sm sm:text-base whitespace-nowrap">
           {t('profileBtn')}
         </span>
       </Link>
@@ -26,7 +32,7 @@ function AuthButton() {
   }
 
   return (
-    <LoginButton className="login-button inline-flex h-10 items-center justify-center gap-2.5 px-6 sm:px-10 py-3 bg-white/5 rounded-xl border border-white/35 backdrop-blur-sm cursor-pointer hover:bg-white/10 transition-colors">
+    <LoginButton className="login-button inline-flex h-10 items-center justify-center gap-2.5 px-4 sm:px-10 py-3 bg-white/5 rounded-xl border border-white/35 backdrop-blur-sm cursor-pointer hover:bg-white/10 transition-colors">
       <span className="font-medium text-[#f7f9fc] text-sm sm:text-base whitespace-nowrap">
         {t('loginBtn')}
       </span>
