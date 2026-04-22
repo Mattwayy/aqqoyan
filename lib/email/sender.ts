@@ -9,11 +9,24 @@ export async function sendWelcomeEmail(user: {
   name: string
   surname?: string
 }) {
-  // Инициализируем клиент лениво — env доступен только в runtime, не во время билда
-  const resend = new Resend(process.env.RESEND_API_KEY)
+  console.log('[email] ── sendWelcomeEmail called ──────────────────')
+  console.log('[email] to:', user.email, '| name:', user.name, user.surname ?? '')
 
-  const html = await render(WelcomeEmail({ name: user.name, surname: user.surname }))
+  const apiKey = process.env.RESEND_API_KEY
+  console.log('[email] RESEND_API_KEY present:', !!apiKey, '| starts with:', apiKey?.slice(0, 6))
 
+  const resend = new Resend(apiKey)
+
+  let html: string
+  try {
+    html = await render(WelcomeEmail({ name: user.name, surname: user.surname }))
+    console.log('[email] template rendered, html length:', html.length)
+  } catch (renderErr) {
+    console.error('[email] render FAILED:', renderErr)
+    throw renderErr
+  }
+
+  console.log('[email] calling resend.emails.send...')
   const { data, error } = await resend.emails.send({
     from:    FROM,
     to:      [user.email],
@@ -22,10 +35,10 @@ export async function sendWelcomeEmail(user: {
   })
 
   if (error) {
-    // Бросаем ошибку — вызывающий код решает, блокировать ли ответ
+    console.error('[email] Resend returned error:', JSON.stringify(error))
     throw new Error(`[email] Resend error: ${JSON.stringify(error)}`)
   }
 
-  console.log(`[email] Welcome email sent → ${user.email} (id: ${data?.id})`)
+  console.log('[email] ✓ sent successfully! id:', data?.id, '| to:', user.email)
   return data
 }
