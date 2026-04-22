@@ -2,8 +2,6 @@ import { Resend } from 'resend'
 import { render } from '@react-email/render'
 import { WelcomeEmail } from './WelcomeEmail'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const FROM = 'IFBF 2026 <noreply@ifbforum.kz>'
 
 export async function sendWelcomeEmail(user: {
@@ -11,6 +9,9 @@ export async function sendWelcomeEmail(user: {
   name: string
   surname?: string
 }) {
+  // Инициализируем клиент лениво — env доступен только в runtime, не во время билда
+  const resend = new Resend(process.env.RESEND_API_KEY)
+
   const html = await render(WelcomeEmail({ name: user.name, surname: user.surname }))
 
   const { data, error } = await resend.emails.send({

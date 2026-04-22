@@ -1,9 +1,9 @@
-import { TermsContent } from './termsContent'
+import TermsWrapper from './TermsWrapper'
 
 export const metadata = {
   title: 'Пользовательское соглашение — IFBF 2026',
 }
 
 export default function TermsPage() {
-  return <TermsContent />
+  return <TermsWrapper />
 }
