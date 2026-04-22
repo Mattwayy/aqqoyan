@@ -1,4 +1,5 @@
 import { Resend } from 'resend'
+import { render } from '@react-email/render'
 import { WelcomeEmail } from './WelcomeEmail'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -10,11 +11,13 @@ export async function sendWelcomeEmail(user: {
   name: string
   surname?: string
 }) {
+  const html = await render(WelcomeEmail({ name: user.name, surname: user.surname }))
+
   const { data, error } = await resend.emails.send({
     from:    FROM,
     to:      [user.email],
     subject: `Вы зарегистрированы на IFBF 2026, ждем вас на конференции ${user.name}!`,
-    react:   WelcomeEmail({ name: user.name, surname: user.surname }),
+    html,
   })
 
   if (error) {
