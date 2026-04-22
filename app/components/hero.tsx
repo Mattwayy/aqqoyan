@@ -36,9 +36,9 @@ export default function Hero() {
           <RegisterButton className="w-full sm:w-auto h-12 sm:h-14 px-8 rounded-xl text-base sm:text-lg font-medium bg-gradient-to-r from-[#2f4fa3] to-[#5fe3e3] shadow-lg hover:opacity-90 transition">
             {t('register')}
           </RegisterButton>
-          <button className="w-full sm:w-auto h-12 sm:h-14 px-8 rounded-xl text-base sm:text-lg font-medium text-[#5fe3e3] border border-[#5fe3e3]/40 backdrop-blur hover:bg-white/5 transition">
+          <a href="#programs" className="w-full sm:w-auto h-12 sm:h-14 px-8 rounded-xl text-base sm:text-lg font-medium text-[#5fe3e3] border border-[#5fe3e3]/40 backdrop-blur hover:bg-white/5 transition inline-flex items-center justify-center">
             {t('viewProgram')}
-          </button>
+          </a>
         </div>
 
       </div>

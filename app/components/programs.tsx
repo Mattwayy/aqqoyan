@@ -19,7 +19,7 @@ export default function Programs() {
       { icon: "/prog/coffie.svg", time: "12.10 – 14.00", title: t('lunch'), description: "", extra: null },
     ],
     [
-      { icon: "/prog/showcase.svg", time: "14.00 – 14.50", title: t('showcaseLabel'), description: t('showcaseText1'), extra: null },
+      { icon: "/prog/showcase.svg", time: "14.00 – 14.50", title: t('showcaseLabel'), description: t('showcaseText2'), extra: null },
       { icon: "/prog/coffie.svg", time: "14.50 – 15.20", title: t('cofieeBreak'), description: "", extra: null },
       {
         icon: "/prog/presentation.svg",

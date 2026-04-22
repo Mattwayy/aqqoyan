@@ -7,7 +7,6 @@ import type { NextRequest } from 'next/server'
  * Полная валидация сессии — в самой странице через getServerSession().
  */
 export default function proxy(request: NextRequest) {
-  // next-auth v4 кладёт JWT в один из этих cookie в зависимости от окружения
   const sessionToken =
     request.cookies.get('next-auth.session-token')?.value ??
     request.cookies.get('__Secure-next-auth.session-token')?.value

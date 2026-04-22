@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getUserByEmail, createUser } from '@/app/lib/serverDb'
-import { postEmail } from '../resend/resend'
+import { sendWelcomeEmail } from '@/lib/email/sender'
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
     const { email, password, name, surname, phone,
-            org, position, scope, country, city, lang, comment } = body
+            org, position, scope, country, city, lang } = body
 
     if (!email || !password || !name || !surname || !phone) {
       return NextResponse.json({ message: 'Заполните обязательные поля' }, { status: 400 })
@@ -30,13 +30,14 @@ export async function POST(req: Request) {
 
       const user = createUser({
         name, surname, email, phone,
-        org, position, scope, country, city, lang, comment,
+        org, position, scope, country, city, lang,
         _password: password,
         qrPayload,
       })
-        postEmail({ email, name }).catch(err => {
-        console.error('[Email] Ошибка отправки в мок-режиме:', err)
-      })
+
+      // Email не блокирует ответ — логируем ошибку, но регистрацию не ломаем
+      sendWelcomeEmail({ email: user.email, name: user.name, surname: user.surname })
+        .catch(err => console.error('[register/mock] Email failed:', err))
 
       return NextResponse.json(
         { id: user.id, name: user.name, email: user.email },
@@ -50,17 +51,18 @@ export async function POST(req: Request) {
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({
         name, surname, email, phone, password,
-        org, position, scope, country, city, lang, comment,
-        qrPayload,           // ← бэкенд сохраняет вместе с остальными данными
+        org, position, scope, country, city, lang,
+        qrPayload,
       }),
     })
 
     const data = await res.json()
-     if (res.status === 201) {
-      postEmail({ email, name }).catch(err => {
-        console.error('[Email] Ошибка отправки:', err)
-      })
+
+    if (res.status === 201) {
+      sendWelcomeEmail({ email, name, surname })
+        .catch(err => console.error('[register/prod] Email failed:', err))
     }
+
     return NextResponse.json(data, { status: res.status })
 
   } catch (err) {

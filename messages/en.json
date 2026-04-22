@@ -143,7 +143,8 @@
      "panelSessionText2": "International experience and investment attraction."
   },
   "header": {
-    "loginBtn": "Sign In / Register"
+    "loginBtn":   "Sign In / Sign Up",
+    "profileBtn": "My Cabinet"
   },
   "auth": {
     "register": {

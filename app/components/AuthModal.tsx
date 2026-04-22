@@ -8,8 +8,6 @@ import { useTranslations } from 'next-intl'
 import logo from '@/public/logo.svg'
 import { useModal } from '@/app/context/ModalContext'
 
-const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
-
 /* ─── shared styles ──────────────────────────────────────── */
 const inp =
   'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#2f4fa3] transition-colors disabled:opacity-50'
@@ -28,7 +26,7 @@ function Spinner() {
 
 function ErrorBox({ message }: { message: string }) {
   return (
-    <p className="rounded-lg bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-600 col-span-2">
+    <p className="rounded-lg bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-600 col-span-full">
       {message}
     </p>
   )
@@ -90,9 +88,10 @@ function RegisterView({
     setLoading(true)
     try {
       const { confirmPassword: _, ...payload } = fields
-      if (!API_BASE_URL || API_BASE_URL === 'mock') throw new Error(t('errNoApi'))
 
-      const res = await fetch(`${API_BASE_URL}/api/register`, {
+      // Всегда через локальный Next.js route — он отправляет письмо через Resend
+      // и сам решает mock vs real backend по NEXT_PUBLIC_API_URL
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...payload, agreePersonal: agree1, agreeMedia: agree2 }),
@@ -248,11 +247,6 @@ function LoginView({ onSuccess, onRegister }: { onSuccess: () => void; onRegiste
         {loading && <Spinner />}
         {loading ? t('submitting') : t('submit')}
       </button>
-      <p className="text-center">
-        <button type="button" className="text-sm text-slate-500 underline underline-offset-2 hover:text-[#2f4fa3] transition-colors">
-          {t('forgotPassword')}
-        </button>
-      </p>
       <p className="text-center text-sm text-slate-500">
         {t('noAccount')}{' '}
         <button type="button" onClick={onRegister} disabled={loading}

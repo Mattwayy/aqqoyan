@@ -91,7 +91,7 @@ export default function Organizers() {
         </div>
 
         {/* Bottom row — 1 centered card */}
-        <div className="w-full sm:w-1/2">
+        <div className="w-full sm:w-1/2 mx-auto">
           <OrgCard item={third} />
         </div>
 

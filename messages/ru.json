@@ -145,7 +145,8 @@
   },
 
   "header": {
-    "loginBtn": "Вход / Регистрация"
+    "loginBtn":   "Вход / Регистрация",
+    "profileBtn": "Личный кабинет"
   },
   "auth": {
     "register": {

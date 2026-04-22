@@ -184,11 +184,16 @@ const Speakers = () => {
         </div>
 
         {expanded && (
-            <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-8 animate-[fadeIn_0.3s_ease] ">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-8 animate-[fadeIn_0.3s_ease]">
             {moreSpeakers.map((speaker, i) => (
-              <SpeakerCard key={`more-${i}`} speaker={speaker} isEn={isEn} />
+              <div
+                key={`more-${i}`}
+                className="w-[calc(50%-10px)] sm:w-[calc(33.333%-14px)] md:w-[calc(25%-15px)] lg:w-[calc(20%-16px)]"
+              >
+                <SpeakerCard speaker={speaker} isEn={isEn} />
+              </div>
             ))}
-            </div>
+          </div>
         )}
 
         {/* Toggle button */}

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useAppStore } from '@/lib/store'
+import LangDropdown from './LangDropdown'
 
 /* ── Inline icons ───────────────────────────────────────── */
 function BellIcon() {
@@ -113,7 +114,7 @@ function NotificationModal({ onClose }: { onClose: () => void }) {
 function SettingsView({ onBack }: { onBack: () => void }) {
   const t       = useTranslations('settings')
   const tMenu   = useTranslations('menu')
-  const { isDark, toggleTheme, locale, setLocale } = useAppStore()
+  const { isDark, toggleTheme } = useAppStore()
 
   return (
     <div className="flex flex-col">
@@ -148,20 +149,7 @@ function SettingsView({ onBack }: { onBack: () => void }) {
           <GlobeIcon />
           <span>{t('lang')}</span>
         </div>
-        <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600">
-          <button
-            onClick={() => setLocale('ru')}
-            className={`px-3 py-1 text-xs font-medium transition-colors ${locale === 'ru' ? 'bg-[#2f4fa3] text-white' : 'text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
-          >
-            RU
-          </button>
-          <button
-            onClick={() => setLocale('en')}
-            className={`px-3 py-1 text-xs font-medium transition-colors ${locale === 'en' ? 'bg-[#2f4fa3] text-white' : 'text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
-          >
-            EN
-          </button>
-        </div>
+        <LangDropdown variant="settings" />
       </div>
     </div>
   )
@@ -217,7 +205,7 @@ function DropdownMenu({ onClose }: { onClose: () => void }) {
 function DesktopSettingsModal({ onClose }: { onClose: () => void }) {
   const t     = useTranslations('settings')
   const tMenu = useTranslations('menu')
-  const { isDark, toggleTheme, locale, setLocale } = useAppStore()
+  const { isDark, toggleTheme } = useAppStore()
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-end">
@@ -252,16 +240,7 @@ function DesktopSettingsModal({ onClose }: { onClose: () => void }) {
             <GlobeIcon />
             <span>{t('lang')}</span>
           </div>
-          <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600">
-            <button
-              onClick={() => setLocale('ru')}
-              className={`px-3 py-1 text-xs font-medium transition-colors ${locale === 'ru' ? 'bg-[#2f4fa3] text-white' : 'text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
-            >RU</button>
-            <button
-              onClick={() => setLocale('en')}
-              className={`px-3 py-1 text-xs font-medium transition-colors ${locale === 'en' ? 'bg-[#2f4fa3] text-white' : 'text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
-            >EN</button>
-          </div>
+          <LangDropdown variant="settings" />
         </div>
       </div>
     </div>

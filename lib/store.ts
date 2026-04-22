@@ -1,9 +1,9 @@
 'use client'
 
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
-type Locale = 'ru' | 'en'
+export type Locale = 'ru' | 'en' | 'kz'
 
 interface AppStore {
   isDark:      boolean
@@ -11,6 +11,18 @@ interface AppStore {
   toggleTheme: () => void
   setLocale:   (l: Locale) => void
 }
+
+// SSR-safe: сервер получает no-op хранилище, клиент — localStorage
+const ssrSafeStorage = createJSONStorage(() => {
+  if (typeof window === 'undefined') {
+    return {
+      getItem:    () => null,
+      setItem:    () => {},
+      removeItem: () => {},
+    }
+  }
+  return localStorage
+})
 
 export const useAppStore = create<AppStore>()(
   persist(
@@ -20,6 +32,9 @@ export const useAppStore = create<AppStore>()(
       toggleTheme: () => set(s => ({ isDark: !s.isDark })),
       setLocale:   (locale) => set({ locale }),
     }),
-    { name: 'ifbf-app-store' }
+    {
+      name:    'ifbf-app-store',
+      storage: ssrSafeStorage,
+    }
   )
 )
