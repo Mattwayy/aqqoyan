@@ -8,7 +8,13 @@ import { useSession } from "next-auth/react"
 import LoginButton from "./LoginButton"
 import LangDropdown from "./LangDropdown"
 import { useTranslations } from "next-intl"
-import { useAppStore } from "@/lib/store"
+import { useAppStore, type Locale } from "@/lib/store"
+
+const LANGS: { value: Locale; label: string }[] = [
+  { value: 'ru', label: 'RU' },
+  { value: 'en', label: 'EN' },
+  { value: 'kz', label: 'KZ' },
+]
 
 /* ── Icons ─────────────────────────────────────────────── */
 function SunIcon() {
@@ -97,7 +103,7 @@ function AuthButton() {
 /* ── Mobile burger menu ─────────────────────────────────── */
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const { data: session } = useSession()
-  const { isDark, toggleTheme } = useAppStore()
+  const { isDark, toggleTheme, locale, setLocale } = useAppStore()
   const t     = useTranslations('header')
   const tSet  = useTranslations('settings')
 
@@ -138,7 +144,21 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
             <GlobeIcon />
             <span>{tSet('lang')}</span>
           </div>
-          <LangDropdown variant="header" />
+          <div className="flex items-center gap-1">
+            {LANGS.map(({ value, label }) => (
+              <button
+                key={value}
+                onClick={() => setLocale(value)}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  locale === value
+                    ? 'bg-[#2f4fa3] text-white'
+                    : 'text-white/70 hover:bg-white/10'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Theme */}
