@@ -47,8 +47,9 @@ export async function POST(req: Request) {
 
     /* ── Real backend ─────────────────────────────────── */
     // Собираем только непустые поля — внешний API может отвергать undefined/null
-    const externalPayload: Record<string, string> = {
+    const externalPayload: Record<string, string | boolean> = {
       name, surname, email, phone, password,
+      agreePersonal: true,   // внешний API требует явного согласия
     }
     if (org)      externalPayload.org      = org
     if (position) externalPayload.position = position
