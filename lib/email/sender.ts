@@ -8,18 +8,24 @@ export async function sendWelcomeEmail(user: {
   email: string
   name: string
   surname?: string
+  lang?: string
 }) {
   console.log('[email] ── sendWelcomeEmail called ──────────────────')
-  console.log('[email] to:', user.email, '| name:', user.name, user.surname ?? '')
+  console.log('[email] to:', user.email, '| name:', user.name, user.surname ?? '', '| lang:', user.lang ?? 'ru')
 
   const apiKey = process.env.RESEND_API_KEY
   console.log('[email] RESEND_API_KEY present:', !!apiKey, '| starts with:', apiKey?.slice(0, 6))
 
   const resend = new Resend(apiKey)
 
+  const isEn = user.lang === 'en'
+  const subject = isEn
+    ? `You are registered for IFBF 2026 — we look forward to seeing you, ${user.name}!`
+    : `Вы зарегистрированы на IFBF 2026, ждём вас на форуме, ${user.name}!`
+
   let html: string
   try {
-    html = await render(WelcomeEmail({ name: user.name, surname: user.surname }))
+    html = await render(WelcomeEmail({ name: user.name, surname: user.surname, lang: user.lang }))
     console.log('[email] template rendered, html length:', html.length)
   } catch (renderErr) {
     console.error('[email] render FAILED:', renderErr)
@@ -28,9 +34,9 @@ export async function sendWelcomeEmail(user: {
 
   console.log('[email] calling resend.emails.send...')
   const { data, error } = await resend.emails.send({
-    from:    FROM,
-    to:      [user.email],
-    subject: `Вы зарегистрированы на IFBF 2026, ждем вас на конференции ${user.name}!`,
+    from: FROM,
+    to:   [user.email],
+    subject,
     html,
   })
 

@@ -7,10 +7,12 @@ import {
 interface WelcomeEmailProps {
   name: string
   surname?: string
+  lang?: string   // 'en' → английский, всё остальное → русский
 }
 
-export function WelcomeEmail({ name, surname }: WelcomeEmailProps) {
+export function WelcomeEmail({ name, surname, lang }: WelcomeEmailProps) {
   const fullName = [name, surname].filter(Boolean).join(' ')
+  const isEn = lang === 'en'
 
   return (
     <Html lang="ru" dir="ltr">
@@ -40,122 +42,122 @@ export function WelcomeEmail({ name, surname }: WelcomeEmailProps) {
             <Text style={headerSub}>Islamic Finance and Business Forum</Text>
           </Section>
 
-          {/* ── RU Block ── */}
-          <Section style={content}>
-            <Text style={langBadge}>RUS</Text>
-            <Heading as="h2" style={greeting}>Уважаемый участник,</Heading>
+          {isEn ? (
+            /* ── EN ── */
+            <Section style={content}>
+              <Heading as="h2" style={greeting}>Dear Participant,</Heading>
 
-            <Text style={paragraph}>
-              Благодарим Вас за регистрацию на Islamic Finance and Business Forum 2026.
-              Ваша регистрация успешно подтверждена.
-            </Text>
-
-            <Section style={infoBox}>
-              <Text style={infoRow}>
-                <span style={infoLabel}>📅 Дата</span>
-                <span style={infoValue}>21 мая 2026 года</span>
+              <Text style={paragraph}>
+                Thank you for registering for the Islamic Finance and Business Forum 2026.
+                We are pleased to confirm that your registration has been successfully processed.
               </Text>
-              <Hr style={infoHr} />
-              <Text style={infoRow}>
-                <span style={infoLabel}>📍 Место</span>
-                <span style={infoValue}>Международный финансовый центр «Астана», г. Астана</span>
+
+              <Section style={infoBox}>
+                <Text style={infoRow}>
+                  <span style={infoLabel}>📅 Date</span>
+                  <span style={infoValue}>May 21, 2026</span>
+                </Text>
+                <Hr style={infoHr} />
+                <Text style={infoRow}>
+                  <span style={infoLabel}>📍 Venue</span>
+                  <span style={infoValue}>Astana International Financial Centre (AIFC), Astana</span>
+                </Text>
+              </Section>
+
+              <Text style={paragraph}>
+                Your personal electronic QR code is now available in your user account on the forum website.
+                Please ensure you save or download it in advance, as it will be required for entry to the venue.
               </Text>
-            </Section>
 
-            <Text style={paragraph}>
-              В Вашем личном кабинете на сайте форума доступен электронный QR-код.
-              Вход на форум будет осуществляться по нему, поэтому просим заранее сохранить его.
-            </Text>
+              <Section style={ctaSection}>
+                <Link href="https://ifbforum.kz/profile" style={ctaButton}>Go to my account</Link>
+              </Section>
 
-            <Section style={ctaSection}>
-              <Link href="https://ifbforum.kz/profile" style={ctaButton}>
-                Перейти в личный кабинет
-              </Link>
-            </Section>
-
-            <Text style={paragraph}>
-              Подробная программа форума и логистические детали будут направлены
-              на ваш электронный адрес по мере приближения даты форума.
-              Рекомендуем также подписаться на наши официальные страницы в социальных сетях,
-              чтобы следить за новостями и анонсами:
-            </Text>
-
-            <Text style={socialText}>
-              Instagram:{' '}
-              <Link href="https://instagram.com/ifbforum" style={footerLink}>@ifbforum</Link>
-              {'  ·  '}
-              LinkedIn:{' '}
-              <Link href="https://linkedin.com/company/ifbforum" style={footerLink}>Islamic Finance and Business Forum</Link>
-            </Text>
-
-            <Text style={paragraph}>
-              Будем рады приветствовать Вас на Islamic Finance and Business Forum 2026.
-            </Text>
-
-            <Text style={note}>
-              <strong>Примечание:</strong> в период с 15 апреля по 31 мая 2026 года в аэропорту
-              Астаны на взлетно-посадочной полосе проводятся плановые ремонтные работы.
-              В связи с этим в указанные даты полоса будет временно закрыта ежедневно
-              с&nbsp;10:00 до&nbsp;18:00 по местному времени. Просим учитывать возможные
-              изменения в расписании рейсов и заранее планировать маршрут.
-            </Text>
-          </Section>
-
-          <Hr style={langDivider} />
-
-          {/* ── EN Block ── */}
-          <Section style={content}>
-            <Text style={langBadge}>ENG</Text>
-            <Heading as="h2" style={greeting}>Dear Participant,</Heading>
-
-            <Text style={paragraph}>
-              Thank you for registering for the Islamic Finance and Business Forum 2026.
-              We are pleased to confirm that your registration has been successfully processed.
-            </Text>
-
-            <Section style={infoBox}>
-              <Text style={infoRow}>
-                <span style={infoLabel}>📅 Date</span>
-                <span style={infoValue}>May 21, 2026</span>
+              <Text style={paragraph}>
+                A detailed program and logistical information will be sent to your email address
+                as the event approaches. To stay updated on the latest news and announcements,
+                we recommend following our official social media pages:
               </Text>
-              <Hr style={infoHr} />
-              <Text style={infoRow}>
-                <span style={infoLabel}>📍 Venue</span>
-                <span style={infoValue}>Astana International Financial Centre (AIFC), Astana</span>
+
+              <Text style={socialText}>
+                Instagram:{' '}
+                <Link href="https://instagram.com/ifbforum" style={footerLink}>@ifbforum</Link>
+                {'  ·  '}
+                LinkedIn:{' '}
+                <Link href="https://linkedin.com/company/ifbforum" style={footerLink}>Islamic Finance and Business Forum</Link>
+              </Text>
+
+              <Text style={paragraph}>
+                We look forward to welcoming you to the Islamic Finance and Business Forum 2026.
+              </Text>
+
+              <Text style={note}>
+                <strong>Important Travel Note:</strong> Please be advised that scheduled maintenance
+                work will be conducted on the runway at Astana Airport from April 15 to May 31, 2026.
+                During this period, the runway will be temporarily closed daily from 10:00 AM to 6:00 PM
+                local time. We kindly ask you to take potential flight schedule changes into account
+                and plan your travel itinerary accordingly.
               </Text>
             </Section>
+          ) : (
+            /* ── RU (default, включая kz) ── */
+            <Section style={content}>
+              <Heading as="h2" style={greeting}>Уважаемый участник,</Heading>
 
-            <Text style={paragraph}>
-              Your personal electronic QR code is now available in your user account on the forum website.
-              Please ensure you save or download it in advance, as it will be required for entry to the venue.
-            </Text>
+              <Text style={paragraph}>
+                Благодарим Вас за регистрацию на Islamic Finance and Business Forum 2026.
+                Ваша регистрация успешно подтверждена.
+              </Text>
 
-            <Text style={paragraph}>
-              A detailed program and logistical information will be sent to your email address
-              as the event approaches. To stay updated on the latest news and announcements,
-              we recommend following our official social media pages:
-            </Text>
+              <Section style={infoBox}>
+                <Text style={infoRow}>
+                  <span style={infoLabel}>📅 Дата</span>
+                  <span style={infoValue}>21 мая 2026 года</span>
+                </Text>
+                <Hr style={infoHr} />
+                <Text style={infoRow}>
+                  <span style={infoLabel}>📍 Место</span>
+                  <span style={infoValue}>Международный финансовый центр «Астана», г. Астана</span>
+                </Text>
+              </Section>
 
-            <Text style={socialText}>
-              Instagram:{' '}
-              <Link href="https://instagram.com/ifbforum" style={footerLink}>@ifbforum</Link>
-              {'  ·  '}
-              LinkedIn:{' '}
-              <Link href="https://linkedin.com/company/ifbforum" style={footerLink}>Islamic Finance and Business Forum</Link>
-            </Text>
+              <Text style={paragraph}>
+                В Вашем личном кабинете на сайте форума доступен электронный QR-код.
+                Вход на форум будет осуществляться по нему, поэтому просим заранее сохранить его.
+              </Text>
 
-            <Text style={paragraph}>
-              We look forward to welcoming you to the Islamic Finance and Business Forum 2026.
-            </Text>
+              <Section style={ctaSection}>
+                <Link href="https://ifbforum.kz/profile" style={ctaButton}>Перейти в личный кабинет</Link>
+              </Section>
 
-            <Text style={note}>
-              <strong>Important Travel Note:</strong> Please be advised that scheduled maintenance
-              work will be conducted on the runway at Astana Airport from April 15 to May 31, 2026.
-              During this period, the runway will be temporarily closed daily from 10:00 AM to 6:00 PM
-              local time. We kindly ask you to take potential flight schedule changes into account
-              and plan your travel itinerary accordingly.
-            </Text>
-          </Section>
+              <Text style={paragraph}>
+                Подробная программа форума и логистические детали будут направлены
+                на ваш электронный адрес по мере приближения даты форума.
+                Рекомендуем также подписаться на наши официальные страницы в социальных сетях,
+                чтобы следить за новостями и анонсами:
+              </Text>
+
+              <Text style={socialText}>
+                Instagram:{' '}
+                <Link href="https://instagram.com/ifbforum" style={footerLink}>@ifbforum</Link>
+                {'  ·  '}
+                LinkedIn:{' '}
+                <Link href="https://linkedin.com/company/ifbforum" style={footerLink}>Islamic Finance and Business Forum</Link>
+              </Text>
+
+              <Text style={paragraph}>
+                Будем рады приветствовать Вас на Islamic Finance and Business Forum 2026.
+              </Text>
+
+              <Text style={note}>
+                <strong>Примечание:</strong> в период с 15 апреля по 31 мая 2026 года в аэропорту
+                Астаны на взлетно-посадочной полосе проводятся плановые ремонтные работы.
+                В связи с этим в указанные даты полоса будет временно закрыта ежедневно
+                с&nbsp;10:00 до&nbsp;18:00 по местному времени. Просим учитывать возможные
+                изменения в расписании рейсов и заранее планировать маршрут.
+              </Text>
+            </Section>
+          )}
 
           {/* ── Footer ── */}
           <Section style={footer}>
@@ -287,23 +289,6 @@ const ctaButton: React.CSSProperties = {
   borderRadius: '10px',
   textDecoration: 'none',
   letterSpacing: '0.2px',
-}
-
-const langDivider: React.CSSProperties = {
-  borderColor: '#e5e9f5',
-  margin: '0',
-}
-
-const langBadge: React.CSSProperties = {
-  display: 'inline-block',
-  fontSize: '11px',
-  fontWeight: 700,
-  letterSpacing: '1px',
-  color: '#2f4fa3',
-  backgroundColor: '#eef2ff',
-  borderRadius: '6px',
-  padding: '3px 10px',
-  margin: '0 0 16px',
 }
 
 const socialText: React.CSSProperties = {

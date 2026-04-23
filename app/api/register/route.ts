@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       })
 
       // Email не блокирует ответ — логируем ошибку, но регистрацию не ломаем
-      sendWelcomeEmail({ email: user.email, name: user.name, surname: user.surname })
+      sendWelcomeEmail({ email: user.email, name: user.name, surname: user.surname, lang })
         .catch(err => console.error('[register/mock] Email failed:', err))
 
       return NextResponse.json(
@@ -73,7 +73,7 @@ export async function POST(req: Request) {
     }
 
     if (res.status === 201) {
-      sendWelcomeEmail({ email, name, surname })
+      sendWelcomeEmail({ email, name, surname, lang })
         .catch(err => console.error('[register/prod] Email failed:', err))
     }
 
