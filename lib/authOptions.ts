@@ -13,11 +13,12 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email:    { label: 'Email',    type: 'email'    },
         password: { label: 'Password', type: 'password' },
+        lang:     { label: 'Lang',     type: 'text'     },
       },
 
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
-        const { email, password } = credentials as { email: string; password: string }
+        const { email, password, lang } = credentials as { email: string; password: string; lang?: string }
 
         /* ── Mock (dev) ─────────────────────────────────── */
         if (IS_MOCK) {
@@ -32,6 +33,7 @@ export const authOptions: NextAuthOptions = {
             org:        user.org,
             position:   user.position,
             qrPayload:  user.qrPayload,
+            lang:       lang ?? 'en',
           }
         }
 
@@ -56,7 +58,7 @@ export const authOptions: NextAuthOptions = {
             org:       u.org       ?? '',
             position:  u.position  ?? '',
             qrPayload: u.qrPayload ?? `IFBF2026:${u.id}`,
-            lang:      u.lang      ?? 'ru',
+            lang:      lang ?? u.lang ?? 'en',
           }
         } catch (err) {
           console.error('[authorize] backend error:', err)

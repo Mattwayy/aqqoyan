@@ -7,6 +7,7 @@ import { signIn } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import logo from '@/public/logo.svg'
 import { useModal } from '@/app/context/ModalContext'
+import { useAppStore } from '@/lib/store'
 
 /* ─── shared styles ──────────────────────────────────────── */
 const inp =
@@ -40,6 +41,7 @@ function RegisterView({
   modalRef: React.RefObject<HTMLDivElement | null>
 }) {
   const t = useTranslations('auth.register')
+  const locale = useAppStore(s => s.locale)
   const [loading, setLoading]     = useState(false)
   const [error, setError]         = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -94,12 +96,12 @@ function RegisterView({
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...payload, agreePersonal: agree1, agreeMedia: agree2 }),
+        body: JSON.stringify({ ...payload, agreePersonal: agree1, agreeMedia: agree2, lang: locale }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.message ?? t('errGeneric'))
 
-      const result = await signIn('credentials', { email: fields.email, password: fields.password, redirect: false })
+      const result = await signIn('credentials', { email: fields.email, password: fields.password, lang: locale, redirect: false })
       if (result?.error) throw new Error(t('errLoginAfter'))
 
       onSuccess()
@@ -213,6 +215,7 @@ function SuccessView({ onProfile }: { onProfile: () => void }) {
 /* ─── Login view ─────────────────────────────────────────── */
 function LoginView({ onSuccess, onRegister }: { onSuccess: () => void; onRegister: () => void }) {
   const t = useTranslations('auth.login')
+  const locale = useAppStore(s => s.locale)
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading]   = useState(false)
@@ -225,7 +228,7 @@ function LoginView({ onSuccess, onRegister }: { onSuccess: () => void; onRegiste
 
     setLoading(true)
     try {
-      const result = await signIn('credentials', { email, password, redirect: false })
+      const result = await signIn('credentials', { email, password, lang: locale, redirect: false })
       if (!result?.ok) throw new Error(t('errInvalid'))
       onSuccess()
     } catch (err) {
