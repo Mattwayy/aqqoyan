@@ -1,7 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import type { NextAuthOptions } from 'next-auth'
 import { getUserByEmail } from '@/app/lib/serverDb'
-import { sendWelcomeEmail } from '@/lib/email/sender'
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
@@ -96,17 +95,6 @@ export const authOptions: NextAuthOptions = {
         session.user.qrPayload = token.qrPayload
       }
       return session
-    },
-  },
-
-  events: {
-    async signIn({ user }) {
-      if (!user.email) return
-      sendWelcomeEmail({
-        email:   user.email,
-        name:    user.name    ?? '',
-        surname: (user as { surname?: string }).surname,
-      }).catch(err => console.error('[signIn event] Email failed:', err))
     },
   },
 

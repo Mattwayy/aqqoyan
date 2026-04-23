@@ -66,7 +66,6 @@ const partners = [
 const Partners = () => {
   const t = useTranslations('partners')
   const locale = useAppStore((state) => state.locale)
-  const isEn = locale === 'en'
 
   return (
     <section id="partners" className="w-full py-20 bg-white dark:bg-slate-900">
@@ -108,7 +107,11 @@ const Partners = () => {
               </div>
 
               <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed whitespace-pre-line">
-                {isEn ? partner.descriptionEng : partner.descriptionKz ? partner.descriptionKz : partner.description}
+                {locale === 'en'
+                  ? partner.descriptionEng
+                  : locale === 'kz'
+                    ? (partner.descriptionKz ?? partner.description)
+                    : partner.description}
               </p>
             </div>
           ))}
