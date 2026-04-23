@@ -12,6 +12,7 @@ interface Speaker {
   role: string
   roleEng?: string
   nameEng?: string
+  roleKz?: string
 }
 
 const initialSpeakers: Speaker[] = [
@@ -23,6 +24,7 @@ const initialSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Генеральный директор & Соучредитель Mizan Islamic Finance",
     roleEng: "CEO & Co-Founder of Mizan Islamic Finance",
+    roleKz: "Mizan Islamic Finance компаниясының Бас директоры және Құрметті серіктесі",
   },
   {
     img: "/speakers/lim.png",
@@ -31,6 +33,7 @@ const initialSpeakers: Speaker[] = [
     country: "UAE",
     role: "Главный советник по цифровым активам и исламским финансам ComTech Gold",
     roleEng: "Chief Advisor on Digital Assets and Islamic Finance at ComTech Gold",
+    roleKz: "ComTech Gold компаниясының Бастық советшісі. Цифрлық активтер және исламдық финанстар бойынша экспертиза",
   },
   {
     img: "/speakers/muf.png",
@@ -39,6 +42,7 @@ const initialSpeakers: Speaker[] = [
     country: "Pakistan",
     role: "Муфтий. Эксперт по шариатскому соответствию в исламских финансах",
     roleEng: "Mufti. Shariah Compliance Expert in Islamic Finance",
+    roleKz: "Муфтий. Исламдық финанстар бойынша шариаттық сәйкестік экспертизасы",
   },
   {
     img: "/speakers/mur.png",
@@ -47,6 +51,7 @@ const initialSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Предприниматель. Шариатский советник (AAOIFI, CSAA)",
     roleEng: "Entrepreneur. Shariah Advisor (AAOIFI, CSAA)",
+    roleKz: "Кәсіпкер. AAOIFI, CSAA шариаттық кеңесшісі",
   },
   {
     img: "/speakers/ain.png",
@@ -55,6 +60,7 @@ const initialSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Учредитель и генеральный директор коммуникационного агентства TIDAM",
     roleEng: "Founder and CEO of TIDAM communications agency",
+    roleKz: "TIDAM коммуникациялық агенттігінің негізін қалаушы және бас директоры",
   },
   {
     img: "/speakers/mad.png",
@@ -63,6 +69,7 @@ const initialSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Руководитель исламских финансов МФЦА",
     roleEng: "Head of Islamic Finance at AIFC",
+    roleKz: "MFCA исламдық финанстар бойынша бас басшылығы",
   },
   {
     img: "/speakers/bek.png",
@@ -71,6 +78,7 @@ const initialSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Генеральный директор Paidax",
     roleEng: "CEO of Paidax",
+    roleKz: "Paidax компаниясының Бас директоры",
   },
   {
     img: "/speakers/mar.png",
@@ -79,6 +87,7 @@ const initialSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Заместитель Генерального директора Kazakhstan Ijara Company",
     roleEng: "Deputy CEO of Kazakhstan Ijara Company",
+    roleKz: "Kazakhstan Ijara Company компаниясының Бас директорының орынбасушысы",
   },
   {
     img: "/speakers/lil.png",
@@ -87,6 +96,7 @@ const initialSpeakers: Speaker[] = [
     country: "Bahrein",
     role: "Основатель и управляющий директор ISTRAT Advisory",
     roleEng: "Founder and Managing Director of ISTRAT Advisory",
+    roleKz: "ISTRAT Advisory компаниясының негізін қалаушы және бас директоры",
   },
     {
     img: "/speakers/nur.png",
@@ -95,6 +105,7 @@ const initialSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "PhD. Руководитель сектора «Исламские финансы» Духовного управления мусульман Казахстана",
     roleEng: "PhD. Head of the 'Islamic Finance' sector of the Spiritual Administration of Muslims of Kazakhstan",
+    roleKz: "Казахстан мусульманының Духовдық басқаруының 'Исламдық финанстар' секторының бас басшылығы",
   },
 
 ]
@@ -109,6 +120,7 @@ const moreSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: " Заместитель Председателя Ассоциация исламских финансов и бизнеса Казахстана (AIFB)",
     roleEng: " Deputy Chairman of the Association of Islamic Finance and Business of Kazakhstan (AIFB)",
+    roleKz: "Казахстан исламдық финанстар және бизнесі асоциациясының Председательінің орынбасушысы (AIFB)",
   },
     {
     img: "/speakers/tim.png",
@@ -117,13 +129,17 @@ const moreSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Член Правления, Главный директор по рискам и ИТ Al Safi Bank Ltd.",
     roleEng: "Board Member, Chief Risk and IT Officer at Al Safi Bank Ltd.",
+    roleKz: "Al Safi Bank Ltd. компаниясының Правление мүшесі, және Қауіптеушілік және ИТ бас директоры",
   },
 
 ]
 
-function SpeakerCard({ speaker, isEn }: { speaker: Speaker; isEn: boolean }) {
-  const displayName = isEn && speaker.nameEng ? speaker.nameEng : speaker.name
-  const displayRole = isEn && speaker.roleEng ? speaker.roleEng : speaker.role
+function SpeakerCard({ speaker, locale }: { speaker: Speaker; locale: string }) {
+  const displayName = locale === 'en' && speaker.nameEng ? speaker.nameEng : speaker.name
+  const displayRole =
+    locale === 'en' ? (speaker.roleEng ?? speaker.role) :
+    locale === 'kz' ? (speaker.roleKz ?? speaker.role) :
+    speaker.role
 
   return (
     <div className="flex flex-col gap-2">
@@ -163,7 +179,6 @@ const Speakers = () => {
   const t = useTranslations('speakers')
   const [expanded, setExpanded] = useState(false)
   const locale = useAppStore(s => s.locale)
-  const isEn = locale === 'en'
 
   return (
     <section id="speakers" className="w-full py-12 md:py-20 bg-[#f7f9fc] dark:bg-slate-900">
@@ -178,7 +193,7 @@ const Speakers = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-8">
           {initialSpeakers.map((speaker, i) => (
             <div key={i} className={!expanded && i >= 4 ? "hidden sm:block" : ""}>
-              <SpeakerCard speaker={speaker} isEn={isEn} />
+              <SpeakerCard speaker={speaker} locale={locale} />
             </div>
           ))}
         </div>
@@ -190,7 +205,7 @@ const Speakers = () => {
                 key={`more-${i}`}
                 className="w-[calc(50%-10px)] sm:w-[calc(33.333%-14px)] md:w-[calc(25%-15px)] lg:w-[calc(20%-16px)]"
               >
-                <SpeakerCard speaker={speaker} isEn={isEn} />
+                <SpeakerCard speaker={speaker} locale={locale} />
               </div>
             ))}
           </div>
