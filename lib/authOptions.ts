@@ -1,6 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import type { NextAuthOptions } from 'next-auth'
 import { getUserByEmail } from '@/app/lib/serverDb'
+import { sendWelcomeEmail } from '@/lib/email/sender'
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
@@ -55,6 +56,7 @@ export const authOptions: NextAuthOptions = {
             org:       u.org       ?? '',
             position:  u.position  ?? '',
             qrPayload: u.qrPayload ?? `IFBF2026:${u.id}`,
+            lang:      u.lang      ?? 'ru',
           }
         } catch (err) {
           console.error('[authorize] backend error:', err)
@@ -82,6 +84,7 @@ export const authOptions: NextAuthOptions = {
         token.org       = user.org
         token.position  = user.position
         token.qrPayload = user.qrPayload
+        token.lang      = (user as { lang?: string }).lang ?? 'ru'
       }
       return token
     },
@@ -95,6 +98,19 @@ export const authOptions: NextAuthOptions = {
         session.user.qrPayload = token.qrPayload
       }
       return session
+    },
+  },
+
+  events: {
+    async signIn({ user }) {
+      if (!user.email) return
+      const u = user as { surname?: string; lang?: string }
+      sendWelcomeEmail({
+        email:   user.email,
+        name:    user.name ?? '',
+        surname: u.surname,
+        lang:    u.lang ?? 'ru',
+      }).catch(err => console.error('[signIn event] Email failed:', err))
     },
   },
 
