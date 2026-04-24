@@ -119,7 +119,7 @@ const moreSpeakers: Speaker[] = [
     nameEng: "Azat Otepbay",
     country: "Kazakhstan",
     role: "Заместитель AIFB, Основатель финтех-экосистемы Ailat",
-    roleEng: "Deputy of AIFB, Founder of fintech ecosystem Ailat",
+    roleEng: "Deputy of AIFB, Founder of Ailat fintech ecosystem",
     roleKz: "AIFB қауымдастығының орынбасары, Ailat финтех-экожүйесінің негізін қалаушы",
   },
     {
