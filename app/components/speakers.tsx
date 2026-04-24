@@ -68,8 +68,8 @@ const initialSpeakers: Speaker[] = [
     nameEng: "Madina Tukulova",
     country: "Kazakhstan",
     role: "Руководитель направления исламских финансов МФЦА, Председатель AIFB",
-    roleEng: "Head of Islamic Finance at AIFC, Chairperson of AIFB",
-    roleKz: "AIFC компаниясының исламдық финанстар бөлімінің басшысы, AIFB компаниясының төрағасы",
+    roleEng: "Head of Islamic Finance at AIFC, CEO of AIFB",
+    roleKz: "AIFC компаниясының исламдық финанстар бөлімінің басшысы, AIFB қауымдастығының төрағасы",
   },
   {
     img: "/speakers/bek.png",
@@ -120,7 +120,7 @@ const moreSpeakers: Speaker[] = [
     country: "Kazakhstan",
     role: "Заместитель AIFB, Основатель финтех-экосистемы Ailat",
     roleEng: "Deputy of AIFB, Founder of fintech ecosystem Ailat",
-    roleKz: "AIFB орынбасары, Ailat финтех-экожүйесінің негізін қалаушы",
+    roleKz: "AIFB қауымдастығының орынбасары, Ailat финтех-экожүйесінің негізін қалаушы",
   },
     {
     img: "/speakers/tim.png",
