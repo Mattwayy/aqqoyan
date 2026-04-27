@@ -41,3 +41,7 @@ export function createUser(data: Omit<StoredUser, 'id'>): StoredUser {
   users.set(id, user)
   return user
 }
+
+export function getAllUsers(): StoredUser[] {
+  return Array.from(users.values())
+}

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "./context/ModalContext";
-import AuthModal from "./components/AuthModal";
+import AuthModal from "./components/AuthModal"
+import BadgeWidget from "./components/BadgeWidget";
 import ScrollToHash from './components/scrollToHash';
 import { Suspense } from 'react';
 import AutoOpenModal from './components/AutoOpenModal';
@@ -38,6 +39,7 @@ export default function RootLayout({
           <ModalProvider>
             {children}
             <AuthModal />
+            <BadgeWidget />
             <ScrollToHash />
             <Suspense fallback={null}>
               <AutoOpenModal />

@@ -265,7 +265,13 @@
       "title": "6. Contacts",
       "content": "For all questions related to the processing of personal data, as well as to exercise their rights as a data subject, the User may contact the Organizer via the email address indicated in the 'Contacts' section on the main page of the website, or through the official communication channels of the forum. The request must include the first name, last name, email address used during registration, and the essence of the request. The Organizer undertakes to maintain the confidentiality of such requests."
     }
+  },
+  "widget": {
+    "welcome":    "Welcome! 👋",
+    "question":   "What business challenge do you want to solve?",
+    "clickHint":  "click here",
+    "modalTitle": "proji",
+    "modalDesc":  "ProGPT is an AI consultant and business analyst in your pocket that helps entrepreneurs quickly get recommendations, analyze business situations and make decisions without constantly turning to external consultants.",
+    "cta":        "Try it"
   }
-
-
 }
