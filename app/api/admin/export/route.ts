@@ -49,7 +49,7 @@ export async function GET() {
   let rows: Record<string, unknown>[] = []
 
   if (IS_MOCK) {
-    rows = getAllUsers().map(({ _password, ...u }) => u).filter(u => !!u.qrPayload)
+    rows = getAllUsers().map(({ _password, ...u }) => u)
   } else {
     try {
       const res = await fetch(`${BASE_URL}/api/users`, {
@@ -60,8 +60,9 @@ export async function GET() {
         cache: 'no-store',
       })
       if (res.ok) {
-        const data = await res.json()
-        rows = (data.users ?? data ?? []).filter((u: Record<string, unknown>) => !!u.qrPayload)
+        const raw = await res.json()
+        const arr = (raw as Record<string, unknown>).users ?? (raw as Record<string, unknown>).data ?? raw
+        rows = Array.isArray(arr) ? arr : []
       }
     } catch (err) {
       console.error('[admin/export]', err)
