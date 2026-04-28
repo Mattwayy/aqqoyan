@@ -35,7 +35,7 @@ export async function GET() {
   }
 
   try {
-    const res = await fetch(`${BASE_URL}/api/users`, {
+    const res = await fetch(`${BASE_URL}/api/users?limit=10000&page=1&per_page=10000`, {
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': process.env.BACKEND_API_KEY || '',
