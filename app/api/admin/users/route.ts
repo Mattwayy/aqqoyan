@@ -45,8 +45,17 @@ export async function GET() {
     if (!res.ok) {
       return NextResponse.json({ message: 'Backend error', status: res.status }, { status: 502 })
     }
-    const data = await res.json()
-    const users = (data.users ?? data ?? []).filter((u: Record<string, unknown>) => !!u.qrPayload)
+    const raw = await res.text()
+    console.log('[admin/users] raw response:', raw.slice(0, 500))
+    let data: unknown
+    try { data = JSON.parse(raw) } catch {
+      console.error('[admin/users] JSON parse failed:', raw.slice(0, 200))
+      return NextResponse.json({ message: 'Invalid JSON from backend' }, { status: 502 })
+    }
+    console.log('[admin/users] data keys:', typeof data === 'object' && data !== null ? Object.keys(data) : typeof data)
+    const arr = (data as Record<string, unknown>).users ?? (data as Record<string, unknown>).data ?? data
+    const users = (Array.isArray(arr) ? arr : []).filter((u: Record<string, unknown>) => !!u.qrPayload)
+    console.log('[admin/users] total after filter:', users.length)
     return NextResponse.json({ users, total: users.length })
   } catch (err) {
     console.error('[admin/users]', err)
