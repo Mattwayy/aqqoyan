@@ -54,8 +54,10 @@ export async function GET() {
     }
     console.log('[admin/users] data keys:', typeof data === 'object' && data !== null ? Object.keys(data) : typeof data)
     const arr = (data as Record<string, unknown>).users ?? (data as Record<string, unknown>).data ?? data
-    const users = (Array.isArray(arr) ? arr : []).filter((u: Record<string, unknown>) => !!u.qrPayload)
-    console.log('[admin/users] total after filter:', users.length)
+    const users = Array.isArray(arr) ? arr : []
+    // log first user keys to identify qr field name
+    if (users.length > 0) console.log('[admin/users] first user keys:', Object.keys(users[0]))
+    console.log('[admin/users] total:', users.length)
     return NextResponse.json({ users, total: users.length })
   } catch (err) {
     console.error('[admin/users]', err)
