@@ -52,7 +52,7 @@ export async function GET() {
     rows = getAllUsers().map(({ _password, ...u }) => u).filter(u => !!u.qrPayload)
   } else {
     try {
-      const res = await fetch(`${BASE_URL}/api/user`, {
+      const res = await fetch(`${BASE_URL}/api/users`, {
         headers: {
           'Content-Type': 'application/json',
           'X-API-Key': process.env.BACKEND_API_KEY || '',
