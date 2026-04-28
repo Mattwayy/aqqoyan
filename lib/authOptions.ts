@@ -1,7 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import type { NextAuthOptions } from 'next-auth'
 import { getUserByEmail } from '@/app/lib/serverDb'
-import { sendWelcomeEmail } from '@/lib/email/sender'
+
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
@@ -103,18 +103,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
-  events: {
-    async signIn({ user }) {
-      if (!user.email) return
-      const u = user as { surname?: string; lang?: string }
-      sendWelcomeEmail({
-        email:   user.email,
-        name:    user.name ?? '',
-        surname: u.surname,
-        lang:    u.lang ?? 'ru',
-      }).catch(err => console.error('[signIn event] Email failed:', err))
-    },
-  },
 
   secret: process.env.NEXTAUTH_SECRET,
 }

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getUserByEmail, createUser } from '@/app/lib/serverDb'
+import { sendWelcomeEmail } from '@/lib/email/sender'
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
@@ -34,7 +35,9 @@ export async function POST(req: Request) {
         qrPayload,
       })
 
-      // Письмо отправляется через events.signIn в authOptions (после signIn в AuthModal)
+      sendWelcomeEmail({ email, name, surname, lang: lang ?? 'ru' })
+        .catch(err => console.error('[register/mock] Email failed:', err))
+
       return NextResponse.json(
         { id: user.id, name: user.name, email: user.email },
         { status: 201 },
@@ -68,7 +71,11 @@ export async function POST(req: Request) {
       console.error('[register/prod] External API error:', res.status, JSON.stringify(data))
     }
 
-    // Письмо отправляется через events.signIn в authOptions (после signIn в AuthModal)
+    if (res.status === 201) {
+      sendWelcomeEmail({ email, name, surname, lang: lang ?? 'ru' })
+        .catch(err => console.error('[register/prod] Email failed:', err))
+    }
+
     return NextResponse.json(data, { status: res.status })
 
   } catch (err) {
