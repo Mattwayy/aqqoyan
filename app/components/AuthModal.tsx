@@ -11,7 +11,7 @@ import { useAppStore } from '@/lib/store'
 
 /* ─── shared styles ──────────────────────────────────────── */
 const inp =
-  'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#2f4fa3] transition-colors disabled:opacity-50'
+  'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-[16px] text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#2f4fa3] transition-colors disabled:opacity-50 touch-action-manipulation'
 
 const submitBtn =
   'h-11 w-full rounded-xl bg-gradient-to-r from-[#2f4fa3] to-[#5fe3e3] text-white font-medium text-base hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2'

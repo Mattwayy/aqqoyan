@@ -45,3 +45,11 @@ export function createUser(data: Omit<StoredUser, 'id'>): StoredUser {
 export function getAllUsers(): StoredUser[] {
   return Array.from(users.values())
 }
+
+export function deleteUser(id: string): void {
+  users.delete(id)
+}
+
+export function deleteAllUsers(): void {
+  users.clear()
+}

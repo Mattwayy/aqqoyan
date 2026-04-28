@@ -17,12 +17,15 @@ interface UserRow {
 }
 
 export default function AdminPanel() {
-  const [users,    setUsers]    = useState<UserRow[]>([])
-  const [total,    setTotal]    = useState<number | null>(null)
-  const [loading,  setLoading]  = useState(false)
-  const [dlLoading,setDlLoading]= useState(false)
-  const [error,    setError]    = useState<string | null>(null)
-  const [lastSync, setLastSync] = useState<string | null>(null)
+  const [users,     setUsers]     = useState<UserRow[]>([])
+  const [total,     setTotal]     = useState<number | null>(null)
+  const [loading,   setLoading]   = useState(false)
+  const [dlLoading, setDlLoading] = useState(false)
+  const [deletingId,setDeletingId]= useState<string | null>(null)
+  const [deletingAll,setDeletingAll] = useState(false)
+  const [confirmAll, setConfirmAll]  = useState(false)
+  const [error,     setError]     = useState<string | null>(null)
+  const [lastSync,  setLastSync]  = useState<string | null>(null)
 
   const fetchUsers = useCallback(async () => {
     setLoading(true)
@@ -60,6 +63,37 @@ export default function AdminPanel() {
     }
   }
 
+  const deleteUser = async (id: string) => {
+    setDeletingId(id)
+    setError(null)
+    try {
+      const res = await fetch(`/api/admin/users/${id}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error(`Ошибка ${res.status}`)
+      setUsers(prev => prev.filter(u => u.id !== id))
+      setTotal(prev => (prev ?? 1) - 1)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Ошибка удаления')
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
+  const deleteAll = async () => {
+    setDeletingAll(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/admin/users/all', { method: 'DELETE' })
+      if (!res.ok) throw new Error(`Ошибка ${res.status}`)
+      setUsers([])
+      setTotal(0)
+      setConfirmAll(false)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Ошибка удаления')
+    } finally {
+      setDeletingAll(false)
+    }
+  }
+
   return (
     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm p-6 sm:p-8 flex flex-col gap-6 transition-colors">
 
@@ -81,36 +115,50 @@ export default function AdminPanel() {
           )}
         </div>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={fetchUsers}
-            disabled={loading}
-            className="flex items-center gap-2 h-10 px-4 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 transition disabled:opacity-50"
-          >
-            <svg
-              width="15" height="15" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-              className={loading ? 'animate-spin' : ''}
-            >
-              <polyline points="23 4 23 10 17 10"/>
-              <polyline points="1 20 1 14 7 14"/>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Refresh */}
+          <button onClick={fetchUsers} disabled={loading}
+            className="flex items-center gap-2 h-10 px-4 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 transition disabled:opacity-50">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={loading ? 'animate-spin' : ''}>
+              <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
               <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
             </svg>
             {loading ? 'Загрузка...' : 'Обновить'}
           </button>
 
-          <button
-            onClick={downloadExcel}
-            disabled={dlLoading}
-            className="flex items-center gap-2 h-10 px-4 rounded-xl bg-gradient-to-r from-[#2f4fa3] to-[#5fe3e3] text-sm font-semibold text-white shadow hover:opacity-90 transition disabled:opacity-50"
-          >
+          {/* Excel */}
+          <button onClick={downloadExcel} disabled={dlLoading}
+            className="flex items-center gap-2 h-10 px-4 rounded-xl bg-gradient-to-r from-[#2f4fa3] to-[#5fe3e3] text-sm font-semibold text-white shadow hover:opacity-90 transition disabled:opacity-50">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
             {dlLoading ? 'Экспорт...' : 'Скачать Excel'}
           </button>
+
+          {/* Delete all */}
+          {users.length > 0 && (
+            confirmAll ? (
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-red-600 dark:text-red-400 font-medium">Удалить всех?</span>
+                <button onClick={deleteAll} disabled={deletingAll}
+                  className="h-10 px-3 rounded-xl bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition disabled:opacity-50">
+                  {deletingAll ? '...' : 'Да'}
+                </button>
+                <button onClick={() => setConfirmAll(false)}
+                  className="h-10 px-3 rounded-xl border border-slate-200 dark:border-slate-600 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                  Нет
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => setConfirmAll(true)}
+                className="flex items-center gap-2 h-10 px-4 rounded-xl border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+                </svg>
+                Удалить всех
+              </button>
+            )
+          )}
         </div>
       </div>
 
@@ -142,24 +190,38 @@ export default function AdminPanel() {
                 <th className="pb-3 pr-4 font-medium">Телефон</th>
                 <th className="pb-3 pr-4 font-medium">Организация</th>
                 <th className="pb-3 pr-4 font-medium">Страна</th>
-                <th className="pb-3 font-medium">Язык</th>
+                <th className="pb-3 pr-4 font-medium">Язык</th>
+                <th className="pb-3 font-medium"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
               {users.map((u, i) => (
                 <tr key={u.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                   <td className="py-3 pr-4 text-slate-400 dark:text-slate-500">{i + 1}</td>
-                  <td className="py-3 pr-4 font-medium text-[#121e52] dark:text-white whitespace-nowrap">
-                    {u.name} {u.surname}
-                  </td>
+                  <td className="py-3 pr-4 font-medium text-[#121e52] dark:text-white whitespace-nowrap">{u.name} {u.surname}</td>
                   <td className="py-3 pr-4 text-slate-600 dark:text-slate-300">{u.email}</td>
                   <td className="py-3 pr-4 text-slate-600 dark:text-slate-300 whitespace-nowrap">{u.phone}</td>
-                  <td className="py-3 pr-4 text-slate-600 dark:text-slate-300 max-w-[180px] truncate">{u.org ?? '—'}</td>
+                  <td className="py-3 pr-4 text-slate-600 dark:text-slate-300 max-w-[160px] truncate">{u.org ?? '—'}</td>
                   <td className="py-3 pr-4 text-slate-600 dark:text-slate-300">{u.country ?? '—'}</td>
-                  <td className="py-3">
+                  <td className="py-3 pr-4">
                     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 uppercase">
                       {u.lang ?? '—'}
                     </span>
+                  </td>
+                  <td className="py-3">
+                    <button
+                      onClick={() => deleteUser(u.id)}
+                      disabled={deletingId === u.id}
+                      className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition disabled:opacity-40"
+                      title="Удалить"
+                    >
+                      {deletingId === u.id
+                        ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                        : <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+                          </svg>
+                      }
+                    </button>
                   </td>
                 </tr>
               ))}
