@@ -29,31 +29,24 @@ export async function GET() {
     return NextResponse.json({ message: 'Auth error' }, { status: 500 })
   }
 
-  /* ── Mock ── */
   if (IS_MOCK) {
-    const users = getAllUsers().map(({ _password, ...u }) => u)
+    const users = getAllUsers().map(({ _password, ...u }) => u).filter(u => !!u.qrPayload)
     return NextResponse.json({ users, total: users.length })
   }
 
-  /* ── Real backend ── */
   try {
-    const res = await fetch(`${BASE_URL}/api/users`, {
+    const res = await fetch(`${BASE_URL}/api/user`, {
       headers: {
         'Content-Type': 'application/json',
-        ...(process.env.ADMIN_API_KEY
-          ? { Authorization: `Bearer ${process.env.ADMIN_API_KEY}` }
-          : {}),
+        'X-API-Key': process.env.BACKEND_API_KEY || '',
       },
       cache: 'no-store',
     })
-
     if (!res.ok) {
-      console.error('[admin/users] backend error:', res.status)
       return NextResponse.json({ message: 'Backend error', status: res.status }, { status: 502 })
     }
-
     const data = await res.json()
-    const users = data.users ?? data ?? []
+    const users = (data.users ?? data ?? []).filter((u: Record<string, unknown>) => !!u.qrPayload)
     return NextResponse.json({ users, total: users.length })
   } catch (err) {
     console.error('[admin/users]', err)

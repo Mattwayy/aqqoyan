@@ -49,21 +49,19 @@ export async function GET() {
   let rows: Record<string, unknown>[] = []
 
   if (IS_MOCK) {
-    rows = getAllUsers().map(({ _password, ...u }) => u)
+    rows = getAllUsers().map(({ _password, ...u }) => u).filter(u => !!u.qrPayload)
   } else {
     try {
-      const res = await fetch(`${BASE_URL}/api/users`, {
+      const res = await fetch(`${BASE_URL}/api/user`, {
         headers: {
           'Content-Type': 'application/json',
-          ...(process.env.ADMIN_API_KEY
-            ? { Authorization: `Bearer ${process.env.ADMIN_API_KEY}` }
-            : {}),
+          'X-API-Key': process.env.BACKEND_API_KEY || '',
         },
         cache: 'no-store',
       })
       if (res.ok) {
         const data = await res.json()
-        rows = data.users ?? data ?? []
+        rows = (data.users ?? data ?? []).filter((u: Record<string, unknown>) => !!u.qrPayload)
       }
     } catch (err) {
       console.error('[admin/export]', err)
