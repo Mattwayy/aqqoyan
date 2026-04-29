@@ -4,7 +4,6 @@ import { authOptions } from '@/lib/authOptions'
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
-const IS_DEV   = process.env.NODE_ENV === 'development'
 
 function isAdmin(email: string | null | undefined): boolean {
   if (!email) return false
@@ -14,15 +13,13 @@ function isAdmin(email: string | null | undefined): boolean {
 }
 
 export async function DELETE() {
-  if (!IS_DEV) {
-    try {
-      const session = await getServerSession(authOptions)
-      if (!session?.user?.email) return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
-      if (!isAdmin(session.user.email)) return NextResponse.json({ message: 'Forbidden' }, { status: 403 })
-    } catch (err) {
-      console.error('[admin/users/all/delete]', err)
-      return NextResponse.json({ message: 'Auth error' }, { status: 500 })
-    }
+  try {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
+    if (!isAdmin(session.user.email)) return NextResponse.json({ message: 'Forbidden' }, { status: 403 })
+  } catch (err) {
+    console.error('[admin/users/all/delete]', err)
+    return NextResponse.json({ message: 'Auth error' }, { status: 500 })
   }
 
   if (IS_MOCK) {

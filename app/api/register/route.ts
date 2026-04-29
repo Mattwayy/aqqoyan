@@ -57,8 +57,6 @@ export async function POST(req: Request) {
     if (city)     externalPayload.city     = city
     if (lang)     externalPayload.lang     = lang
 
-    console.log('[register/prod] Sending to external API:', JSON.stringify(externalPayload))
-
     const res = await fetch(`${BASE_URL}/api/register`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },

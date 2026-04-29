@@ -28,7 +28,7 @@ export const useAppStore = create<AppStore>()(
   persist(
     (set) => ({
       isDark:      false,
-      locale:      'ru',
+      locale:      'kz',
       toggleTheme: () => set(s => ({ isDark: !s.isDark })),
       setLocale:   (locale) => set({ locale }),
     }),

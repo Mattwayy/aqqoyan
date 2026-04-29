@@ -46,18 +46,13 @@ export async function GET() {
       return NextResponse.json({ message: 'Backend error', status: res.status }, { status: 502 })
     }
     const raw = await res.text()
-    console.log('[admin/users] raw response:', raw.slice(0, 500))
     let data: unknown
     try { data = JSON.parse(raw) } catch {
-      console.error('[admin/users] JSON parse failed:', raw.slice(0, 200))
+      console.error('[admin/users] JSON parse failed')
       return NextResponse.json({ message: 'Invalid JSON from backend' }, { status: 502 })
     }
-    console.log('[admin/users] data keys:', typeof data === 'object' && data !== null ? Object.keys(data) : typeof data)
     const arr = (data as Record<string, unknown>).users ?? (data as Record<string, unknown>).data ?? data
     const users = Array.isArray(arr) ? arr : []
-    // log first user keys to identify qr field name
-    if (users.length > 0) console.log('[admin/users] first user keys:', Object.keys(users[0]))
-    console.log('[admin/users] total:', users.length)
     return NextResponse.json({ users, total: users.length })
   } catch (err) {
     console.error('[admin/users]', err)
