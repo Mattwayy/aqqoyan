@@ -42,7 +42,7 @@ const partners = [
   },
   {
     src: "/partners/al-safi-light.svg",
-    srcDark: "/partners/al-safi-dark.png ",
+    srcDark: "/partners/al-safi-dark.png",
     alt: "Al Safi Bank",
     name: "Al Safi Bank",
     description:
