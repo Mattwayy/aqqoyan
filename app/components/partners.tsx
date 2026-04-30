@@ -7,17 +7,6 @@ import Image from "next/image"
 
 const partners = [
   {
-    src: "/partners/alif.svg",
-    srcDark: "/partners/alif-light.png",
-    alt: "Alif Uzbekistan",
-    name: "Alif Uzbekistan",
-    descriptionKz: "Alif Uzbekistan — Орталық Азиядағы ең динамикалық исламдық финтех жобаларының бірі, Тәжікстанда құрылған. Alif инновациялық сандық өнімдері, ыңғайлы мобильді банкингі және исламдық қаржы принциптеріне сәйкес келетін ашық шарттарымен танымал. Өз қызметінде Alif жоғары технологияны рухани және этикалық құндылықтармен үйлестіреді.",
-    descriptionEng:
-      "Alif Uzbekistan is one of the most dynamic Islamic fintech projects in Central Asia, founded in Tajikistan. Alif is known for its innovative digital products, convenient mobile banking, and transparent terms that comply with the principles of Islamic finance. In its operations, Alif combines high technology with spiritual and ethical values.",
-    description:
-      "Alif Uzbekistan — один из самых динамично развивающихся исламских финтех проектов Центральной Азии, основанный в Таджикистане. Alif известен своими инновационными цифровыми продуктами, удобным мобильным банкингом и прозрачными условиями, соответствующими принципам Исламского финансирования. В своей деятельности Alif соединяет высокие технологии с духовными и этическими ценностями.",
-  },
-  {
     src: "/partners/its.svg",
     alt: "ITS",
     name: "ITS",
@@ -41,25 +30,27 @@ const partners = [
      "Компания KIC — первая лизинговая организация в Казахстане, работающая строго по принципам Шариата. С 2013 года компания обеспечивает малый и средний бизнес доступом к финансированию на прозрачных и этичных условиях.\nKIC выступает важным звеном в развитии исламских финансов, предлагая надежные инструменты для укрепления реального сектора экономики. Деятельность организации направлена на развитие прозрачной финансовой экосистемы, где высокие технологии гармонично сочетаются с традиционными духовными ценностями.",
   },
   {
-    src: "/partners/proji.svg",
-    alt: "Proji.kz",
-    name: "Proji.kz",
-    descriptionKz: 'Proji.kz — бұл бизнес жүйесін жүйелеуге арналған AI платформасы, ол коммуникацияларды, құжаттарды, идеяларды және келісімдерді түсінікті тапсырмаларға, аналитикаға және басқару әрекеттеріне айналдыруға көмектеседі. Бұл ақпаратты тек сақтау ғана емес, тәртіп, жылдамдық және өсу үшін пайдаланғысы келетін компанияларға қажет.\n\nSunnet Business Technologies командасы әзірлеген — ол бизнеске нақты тапсырмаларға арналған AI және автоматизацияны енгізуге көмектеседі.',
+    src: "/partners/alif.svg",
+    srcDark: "/partners/alif-light.png",
+    alt: "Alif Uzbekistan",
+    name: "Alif Uzbekistan",
+    descriptionKz: "Alif Uzbekistan — Орталық Азиядағы ең динамикалық исламдық финтех жобаларының бірі, Тәжікстанда құрылған. Alif инновациялық сандық өнімдері, ыңғайлы мобильді банкингі және исламдық қаржы принциптеріне сәйкес келетін ашық шарттарымен танымал. Өз қызметінде Alif жоғары технологияны рухани және этикалық құндылықтармен үйлестіреді.",
     descriptionEng:
-      "Proji.kz — this is an AI platform for business systematization, which helps transform communications, documents, ideas, and agreements into understandable tasks, analytics, and management actions. It is needed by companies that want to not just store information but use it for order, speed, and growth.\n\nDeveloped by the Sunnet Business Technologies team — which helps businesses implement AI and automation for real-world tasks.",
+      "Alif Uzbekistan is one of the most dynamic Islamic fintech projects in Central Asia, founded in Tajikistan. Alif is known for its innovative digital products, convenient mobile banking, and transparent terms that comply with the principles of Islamic finance. In its operations, Alif combines high technology with spiritual and ethical values.",
     description:
-      "Proji.kz — это ИИ-платформа для систематизации бизнеса, которая помогает превращать переписки, документы, идеи и договоренности в понятные задачи, аналитику и управленческие действия. Она нужна компаниям, которые хотят не просто хранить информацию, а использовать её для порядка, скорости и роста.\n\nРазработана командой Sunnet Business Technologies — которая помогает бизнесу внедрять ИИ и автоматизацию под реальные задачи.",
+      "Alif Uzbekistan — один из самых динамично развивающихся исламских финтех проектов Центральной Азии, основанный в Таджикистане. Alif известен своими инновационными цифровыми продуктами, удобным мобильным банкингом и прозрачными условиями, соответствующими принципам Исламского финансирования. В своей деятельности Alif соединяет высокие технологии с духовными и этическими ценностями.",
   },
-    {
-    src: "/partners/money.svg",
-    alt: "Money",
-    name: "Money",
-    descriptionKz:
-      "Money — банк, МФО және қаржы ұйымдарына арналған скоринг шешімдерін ұсынатын компания — клиенттерді бағалау, тәуекелдерді азайту және процестерді цифрландыру. Біздің шешімдер исламдық қаржы нарығының қатысушыларына да қолданылады, оның ішінде оның принциптеріне сәйкестікті автоматтандыру үшін.",
-    descriptionEng:
-      "Money is a company that offers scoring solutions for banks, microfinance organizations, and financial institutions — customer assessment, risk reduction, and process digitalization. Our solutions are also applicable to participants in the Islamic finance market, including for automating compliance checks with its principles.",
+  {
+    src: "/partners/al-safi-light.svg",
+    srcDark: "/partners/al-safi-dark.png ",
+    alt: "Al Safi Bank",
+    name: "Al Safi Bank",
     description:
-     "Компания Money предлагает скоринговые решения для банков, МФО и финансовых организаций — оценка клиентов, снижение рисков, цифровизация процессов. Наши решения также применимы для участников рынка исламского финансирования, в том числе для автоматизации проверок на соответствие его принципам."
+      "Al Safi Bank — первый исламский банк на территории Astana International Financial Centre, предлагающий современные и прозрачные банковские услуги. Банк сочетает клиентоориентированный подход, соответствие стандартам AAOIFI и строгий контроль Шариатского совета. Опытная команда с более чем 20-летней экспертизой обеспечивает надёжность, безопасность и заботу о каждом клиенте, поддерживая финансовое благополучие на всех этапах.",
+    descriptionEng:
+      "Al Safi Bank is the first Islamic bank in the Astana International Financial Centre, offering modern and transparent banking services. The bank combines a client-oriented approach, compliance with AAOIFI standards, and strict Sharia board oversight. An experienced team with over 20 years of expertise ensures reliability, security, and care for every client, supporting financial well-being at every stage.",
+    descriptionKz:
+      "Al Safi Bank — Astana International Financial Centre аумағындағы алғашқы исламдық банк, заманауи және мөлдір банктік қызметтерді ұсынады. Банк клиентке бағытталған тәсілді, AAOIFI стандарттарына сәйкестікті және Шариат кеңесінің қатаң бақылауын біріктіреді. 20 жылдан астам тәжірибесі бар тәжірибелі команда әрбір клиентке сенімділікті, қауіпсіздікті және қамқорлықты қамтамасыз етеді, барлық кезеңде қаржылық игілікті қолдайды.",
   },
   {
     src: "/partners/ailat-dark.svg",
@@ -74,16 +65,25 @@ const partners = [
       "Ailat — отбасылық әл-ауқатты нығайтуға және қоғамның тұрақты дамуына бағытталған исламдық қаржылық және технологиялық сервистер экожүйесі. Компания шариатқа сәйкес қаржылық өнімдерді жасауды, сарапшылық кеңесті және жасанды интеллект негізіндегі инновацияларды біріктіреді, этикалық және мөлдір қаржылық шешімдерді барлығына қолжетімді етеді.",
   },
   {
-    src: "/partners/al-safi-light.svg",
-    srcDark: "/partners/al-safi-dark.png ",
-    alt: "Al Safi Bank",
-    name: "Al Safi Bank",
-    description:
-      "Al Safi Bank — первый исламский банк на территории Astana International Financial Centre, предлагающий современные и прозрачные банковские услуги. Банк сочетает клиентоориентированный подход, соответствие стандартам AAOIFI и строгий контроль Шариатского совета. Опытная команда с более чем 20-летней экспертизой обеспечивает надёжность, безопасность и заботу о каждом клиенте, поддерживая финансовое благополучие на всех этапах.",
-    descriptionEng:
-      "Al Safi Bank is the first Islamic bank in the Astana International Financial Centre, offering modern and transparent banking services. The bank combines a client-oriented approach, compliance with AAOIFI standards, and strict Sharia board oversight. An experienced team with over 20 years of expertise ensures reliability, security, and care for every client, supporting financial well-being at every stage.",
+    src: "/partners/money.svg",
+    alt: "Money",
+    name: "Money",
     descriptionKz:
-      "Al Safi Bank — Astana International Financial Centre аумағындағы алғашқы исламдық банк, заманауи және мөлдір банктік қызметтерді ұсынады. Банк клиентке бағытталған тәсілді, AAOIFI стандарттарына сәйкестікті және Шариат кеңесінің қатаң бақылауын біріктіреді. 20 жылдан астам тәжірибесі бар тәжірибелі команда әрбір клиентке сенімділікті, қауіпсіздікті және қамқорлықты қамтамасыз етеді, барлық кезеңде қаржылық игілікті қолдайды.",
+      "Money — банк, МФО және қаржы ұйымдарына арналған скоринг шешімдерін ұсынатын компания — клиенттерді бағалау, тәуекелдерді азайту және процестерді цифрландыру. Біздің шешімдер исламдық қаржы нарығының қатысушыларына да қолданылады, оның ішінде оның принциптеріне сәйкестікті автоматтандыру үшін.",
+    descriptionEng:
+      "Money is a company that offers scoring solutions for banks, microfinance organizations, and financial institutions — customer assessment, risk reduction, and process digitalization. Our solutions are also applicable to participants in the Islamic finance market, including for automating compliance checks with its principles.",
+    description:
+     "Компания Money предлагает скоринговые решения для банков, МФО и финансовых организаций — оценка клиентов, снижение рисков, цифровизация процессов. Наши решения также применимы для участников рынка исламского финансирования, в том числе для автоматизации проверок на соответствие его принципам."
+  },
+  {
+    src: "/partners/proji.svg",
+    alt: "Proji.kz",
+    name: "Proji.kz",
+    descriptionKz: 'Proji.kz — бұл бизнес жүйесін жүйелеуге арналған AI платформасы, ол коммуникацияларды, құжаттарды, идеяларды және келісімдерді түсінікті тапсырмаларға, аналитикаға және басқару әрекеттеріне айналдыруға көмектеседі. Бұл ақпаратты тек сақтау ғана емес, тәртіп, жылдамдық және өсу үшін пайдаланғысы келетін компанияларға қажет.\n\nSunnet Business Technologies командасы әзірлеген — ол бизнеске нақты тапсырмаларға арналған AI және автоматизацияны енгізуге көмектеседі.',
+    descriptionEng:
+      "Proji.kz — this is an AI platform for business systematization, which helps transform communications, documents, ideas, and agreements into understandable tasks, analytics, and management actions. It is needed by companies that want to not just store information but use it for order, speed, and growth.\n\nDeveloped by the Sunnet Business Technologies team — which helps businesses implement AI and automation for real-world tasks.",
+    description:
+      "Proji.kz — это ИИ-платформа для систематизации бизнеса, которая помогает превращать переписки, документы, идеи и договоренности в понятные задачи, аналитику и управленческие действия. Она нужна компаниям, которые хотят не просто хранить информацию, а использовать её для порядка, скорости и роста.\n\nРазработана командой Sunnet Business Technologies — которая помогает бизнесу внедрять ИИ и автоматизацию под реальные задачи.",
   },
 ]
 
