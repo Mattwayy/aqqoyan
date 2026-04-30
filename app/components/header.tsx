@@ -11,9 +11,9 @@ import { useTranslations } from "next-intl"
 import { useAppStore, type Locale } from "@/lib/store"
 
 const LANGS: { value: Locale; label: string }[] = [
+  { value: 'kz', label: 'KZ' },
   { value: 'ru', label: 'RU' },
   { value: 'en', label: 'EN' },
-  { value: 'kz', label: 'KZ' },
 ]
 
 /* ── Icons ─────────────────────────────────────────────── */
