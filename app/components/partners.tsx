@@ -74,8 +74,8 @@ const partners = [
       "Ailat — отбасылық әл-ауқатты нығайтуға және қоғамның тұрақты дамуына бағытталған исламдық қаржылық және технологиялық сервистер экожүйесі. Компания шариатқа сәйкес қаржылық өнімдерді жасауды, сарапшылық кеңесті және жасанды интеллект негізіндегі инновацияларды біріктіреді, этикалық және мөлдір қаржылық шешімдерді барлығына қолжетімді етеді.",
   },
   {
-    src: "/partners/al-safi-dark.png",
-    srcDark: "/partners/al-safi-light.svg",
+    src: "/partners/al-safi-light.svg",
+    srcDark: "/partners/al-safi-dark.png ",
     alt: "Al Safi Bank",
     name: "Al Safi Bank",
     description:
