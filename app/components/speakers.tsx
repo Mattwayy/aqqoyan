@@ -113,6 +113,15 @@ const initialSpeakers: Speaker[] = [
 
 
 const moreSpeakers: Speaker[] = [
+  {
+    img: "/speakers/aya.png",
+    name: "Аян Тулешев",
+    nameEng: "Ayan Tuleshev",
+    country: "Kazakhstan",
+    role: "Директор департамента анализа данных и отраслей МФЦА (AIFC)",
+    roleEng: "Director of the Data Analysis and Industries Department at AIFC",
+    roleKz: "AIFC деректерді талдау және салалар департаментінің директоры",
+  },
       {
     img: "/speakers/aza.png",
     name: "Азат Отепбай",

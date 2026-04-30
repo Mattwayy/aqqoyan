@@ -6,9 +6,9 @@ import { useAppStore } from '@/lib/store'
 type Locale = 'ru' | 'en' | 'kz'
 
 const LANGS: { value: Locale; label: string }[] = [
+  { value: 'kz', label: 'KZ' },
   { value: 'ru', label: 'RU' },
   { value: 'en', label: 'EN' },
-  { value: 'kz', label: 'KZ' },
 ]
 
 /* variant="header"   — белый текст, для тёмного фона хедера  */

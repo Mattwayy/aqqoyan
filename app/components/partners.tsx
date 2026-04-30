@@ -61,6 +61,30 @@ const partners = [
     description:
      "Компания Money предлагает скоринговые решения для банков, МФО и финансовых организаций — оценка клиентов, снижение рисков, цифровизация процессов. Наши решения также применимы для участников рынка исламского финансирования, в том числе для автоматизации проверок на соответствие его принципам."
   },
+  {
+    src: "/partners/ailat-dark.svg",
+    srcDark: "/partners/ailat-light.png",
+    alt: "Ailat",
+    name: "Ailat",
+    description:
+      "Ailat — экосистема исламских финансовых и технологических сервисов, ориентированная на укрепление семейного благосостояния и устойчивое развитие общества. Компания объединяет создание шариат-совместимых финансовых продуктов, экспертный консалтинг и инновации на базе искусственного интеллекта, делая этичные и прозрачные финансовые решения доступными каждому.",
+    descriptionEng:
+      "Ailat is an ecosystem of Islamic financial and technology services focused on strengthening family well-being and sustainable development of society. The company combines the creation of Sharia-compliant financial products, expert consulting, and AI-based innovations, making ethical and transparent financial solutions accessible to everyone.",
+    descriptionKz:
+      "Ailat — отбасылық әл-ауқатты нығайтуға және қоғамның тұрақты дамуына бағытталған исламдық қаржылық және технологиялық сервистер экожүйесі. Компания шариатқа сәйкес қаржылық өнімдерді жасауды, сарапшылық кеңесті және жасанды интеллект негізіндегі инновацияларды біріктіреді, этикалық және мөлдір қаржылық шешімдерді барлығына қолжетімді етеді.",
+  },
+  {
+    src: "/partners/al-safi-dark.svg",
+    srcDark: "/partners/al-safi-light.png",
+    alt: "Al Safi Bank",
+    name: "Al Safi Bank",
+    description:
+      "Al Safi Bank — первый исламский банк на территории Astana International Financial Centre, предлагающий современные и прозрачные банковские услуги. Банк сочетает клиентоориентированный подход, соответствие стандартам AAOIFI и строгий контроль Шариатского совета. Опытная команда с более чем 20-летней экспертизой обеспечивает надёжность, безопасность и заботу о каждом клиенте, поддерживая финансовое благополучие на всех этапах.",
+    descriptionEng:
+      "Al Safi Bank is the first Islamic bank in the Astana International Financial Centre, offering modern and transparent banking services. The bank combines a client-oriented approach, compliance with AAOIFI standards, and strict Sharia board oversight. An experienced team with over 20 years of expertise ensures reliability, security, and care for every client, supporting financial well-being at every stage.",
+    descriptionKz:
+      "Al Safi Bank — Astana International Financial Centre аумағындағы алғашқы исламдық банк, заманауи және мөлдір банктік қызметтерді ұсынады. Банк клиентке бағытталған тәсілді, AAOIFI стандарттарына сәйкестікті және Шариат кеңесінің қатаң бақылауын біріктіреді. 20 жылдан астам тәжірибесі бар тәжірибелі команда әрбір клиентке сенімділікті, қауіпсіздікті және қамқорлықты қамтамасыз етеді, барлық кезеңде қаржылық игілікті қолдайды.",
+  },
 ]
 
 const Partners = () => {

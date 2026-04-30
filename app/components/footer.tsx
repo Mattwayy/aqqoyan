@@ -90,13 +90,7 @@ export default function Footer({ hideAuthLink }: { hideAuthLink?: boolean }) {
                     {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
                   </a>
                 )}
-                {process.env.NEXT_PUBLIC_CONTACT_PHONE && (
-                  <a href={`tel:${process.env.NEXT_PUBLIC_CONTACT_PHONE}`}
-                    className="hover:text-[#5fe3e3] transition-colors">
-                    {process.env.NEXT_PUBLIC_CONTACT_PHONE}
-                  </a>
-                )}
-                {process.env.NEXT_PUBLIC_CONTACT_ADDRESS && (
+{process.env.NEXT_PUBLIC_CONTACT_ADDRESS && (
                   <span>{process.env.NEXT_PUBLIC_CONTACT_ADDRESS}</span>
                 )}
               </div>

@@ -152,7 +152,7 @@ function SurveyModal({
         {isDone ? (
           /* ── Final screen ── */
           <div className="p-8 sm:p-10 flex flex-col gap-5">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#121e52] to-[#2f4fa3] flex items-center justify-center text-white text-lg font-bold shadow">P</div>
+            <img src="/partners/proji.svg" alt="ProGPT" className="h-10 w-auto object-contain" />
             <div>
               <h2 className="text-2xl font-extrabold text-[#121e52] dark:text-white mb-2">
                 {startDone ? 'Спасибо за участие!' : 'Спасибо за ответы.'}
@@ -173,7 +173,7 @@ function SurveyModal({
             <p className="text-[13px] font-semibold text-slate-700 dark:text-slate-200">Получите персональные рекомендации уже сейчас.</p>
             <a href="https://progpt.kz/" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 h-12 rounded-xl bg-gradient-to-r from-[#121e52] to-[#2f4fa3] text-white font-semibold text-[15px] shadow-lg hover:opacity-90 transition-all">
-              Попробовать ProGPT
+              Попробовать proji
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>
