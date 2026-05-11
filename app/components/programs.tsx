@@ -9,25 +9,22 @@ export default function Programs() {
 
   const rows = [
     [
-      { icon: "/prog/greeting.svg", time: "9.30 – 9.40", title: t('greeting'), description: "", extra: null },
-      { icon: "/prog/fireside.svg", time: "9.40 – 10.00", title: t('firesideChatLabel'), description: t('firesideChatText'), extra: null },
-      { icon: "/prog/showcase.svg", time: "10.00 – 10.50", title: t('showcaseLabel'), description: t('showcaseText1'), extra: null },
+      { icon: "/prog/greeting.svg", time: "9.30 – 9.40", title: t('greeting'), description: ""},
+      { icon: "/prog/fireside.svg", time: "9.40 – 10.00", title: t('firesideChatLabel'), description: t('firesideChatText')},
+      { icon: "/prog/showcase.svg", time: "10.00 – 10.50", title: t('showcaseLabel'), description: t('showcaseText1')},
     ],
     [
-      { icon: "/prog/coffie.svg", time: "10.50 – 11.20", title: t('cofieeBreak'), description: "", extra: null },
-      { icon: "/prog/session.svg", time: "11.20 – 12.10", title: t('panelSessionLabel'), description: t('panelSessionText'), extra: null },
-      { icon: "/prog/coffie.svg", time: "12.10 – 14.00", title: t('lunch'), description: "", extra: null },
+      { icon: "/prog/coffie.svg", time: "10.50 – 11.20", title: t('cofieeBreak'), description: ""},
+      { icon: "/prog/session.svg", time: "11.20 – 12.10", title: t('panelSessionLabel'), description: t('panelSessionText')},
+      { icon: "/prog/coffie.svg", time: "12.10 – 14.00", title: t('lunch'), description: ""},
     ],
     [
-      { icon: "/prog/showcase.svg", time: "14.00 – 14.50", title: t('showcaseLabel'), description: t('showcaseText2'), extra: null },
-      { icon: "/prog/coffie.svg", time: "14.50 – 15.20", title: t('cofieeBreak'), description: "", extra: null },
-      {
-        icon: "/prog/presentation.svg",
-        time: "15.20 – 16.20",
-        title: t('presentationLabel'),
-        description: t('presentationText'),
-        extra: { title: t('panelSessionLabel'), description: t('panelSessionText2') },
-      },
+      { icon: "/prog/showcase.svg", time: "14.00 – 14.50", title: t('showcaseLabel'), description: t('showcaseText2')},
+      { icon: "/prog/coffie.svg", time: "14.50 – 15.20", title: t('cofieeBreak'), description: ""},
+      { icon: "/prog/presentation.svg", time: "15.20 – 15.40", title: t('presentationLabel'), description: t('presentationText')},
+    ],
+    [
+      { icon: "/prog/session.svg", time: "15.40 – 16.30", title: t('panelSessionLabel'), description: t('panelSessionText2')},
     ],
   ]
 
@@ -56,12 +53,6 @@ export default function Programs() {
               {item.description && (
                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed text-center">{item.description}</p>
               )}
-              {item.extra && (
-                <div className="flex flex-col gap-1 border-t border-slate-100 dark:border-slate-700 pt-3 mt-1">
-                  <p className="text-sm font-bold text-[#121e52] dark:text-white text-center">{item.extra.title}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">{item.extra.description}</p>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -70,36 +61,52 @@ export default function Programs() {
         <div className="hidden sm:flex flex-col gap-0">
           {rows.map((row, rowIndex) => (
             <div key={rowIndex} className="flex flex-col">
-              <div className="grid grid-cols-3">
-                {row.map((_, colIndex) => (
-                  <div key={colIndex} className="flex items-center">
-                    <div className={`flex-1 h-px ${colIndex === 0 ? "bg-transparent" : "bg-slate-200 dark:bg-slate-700"}`} />
-                    <div className="flex flex-col items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-slate-300" />
-                      <div className="w-2 h-2 rounded-full bg-[#5fe3e3]" />
-                    </div>
-                    <div className={`flex-1 h-px ${colIndex === 2 ? "bg-transparent" : "bg-slate-200 dark:bg-slate-700"}`} />
+              {row.length === 1 ? (
+                <div className="flex justify-center">
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-2 h-2 rounded-full bg-slate-300" />
+                    <div className="w-2 h-2 rounded-full bg-[#5fe3e3]" />
                   </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-3 gap-4 py-4">
-                {row.map((item, colIndex) => (
-                  <div key={colIndex} className="flex flex-col gap-2 sm:gap-3 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 sm:p-6 shadow-sm dark:shadow-slate-900/50 hover:shadow-md transition-shadow duration-200">
-                    <Image src={item.icon} alt={item.title} width={40} height={40} className="object-contain w-9 h-9 sm:w-12 sm:h-12 mx-auto" />
-                    <span className="text-xs text-slate-400 dark:text-slate-500 font-medium text-center">{item.time}</span>
-                    <p className="text-sm sm:text-base font-bold text-[#121e52] dark:text-white leading-snug text-center">{item.title}</p>
-                    {item.description && (
-                      <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed text-center">{item.description}</p>
-                    )}
-                    {item.extra && (
-                      <div className="flex flex-col gap-1 border-t border-slate-100 dark:border-slate-700 pt-3 mt-1">
-                        <p className="text-sm font-bold text-[#121e52] dark:text-white text-center">{item.extra.title}</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">{item.extra.description}</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-3">
+                  {row.map((_, colIndex) => (
+                    <div key={colIndex} className="flex items-center">
+                      <div className={`flex-1 h-px ${colIndex === 0 ? "bg-transparent" : "bg-slate-200 dark:bg-slate-700"}`} />
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-2 h-2 rounded-full bg-slate-300" />
+                        <div className="w-2 h-2 rounded-full bg-[#5fe3e3]" />
                       </div>
+                      <div className={`flex-1 h-px ${colIndex === 2 ? "bg-transparent" : "bg-slate-200 dark:bg-slate-700"}`} />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {row.length === 1 ? (
+                <div className="flex justify-center py-4">
+                  <div className="w-full max-w-sm flex flex-col gap-2 sm:gap-3 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 sm:p-6 shadow-sm dark:shadow-slate-900/50 hover:shadow-md transition-shadow duration-200">
+                    <Image src={row[0].icon} alt={row[0].title} width={40} height={40} className="object-contain w-9 h-9 sm:w-12 sm:h-12 mx-auto" />
+                    <span className="text-xs text-slate-400 dark:text-slate-500 font-medium text-center">{row[0].time}</span>
+                    <p className="text-sm sm:text-base font-bold text-[#121e52] dark:text-white leading-snug text-center">{row[0].title}</p>
+                    {row[0].description && (
+                      <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed text-center">{row[0].description}</p>
                     )}
                   </div>
-                ))}
-              </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-3 gap-4 py-4">
+                  {row.map((item, colIndex) => (
+                    <div key={colIndex} className="flex flex-col gap-2 sm:gap-3 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 sm:p-6 shadow-sm dark:shadow-slate-900/50 hover:shadow-md transition-shadow duration-200">
+                      <Image src={item.icon} alt={item.title} width={40} height={40} className="object-contain w-9 h-9 sm:w-12 sm:h-12 mx-auto" />
+                      <span className="text-xs text-slate-400 dark:text-slate-500 font-medium text-center">{item.time}</span>
+                      <p className="text-sm sm:text-base font-bold text-[#121e52] dark:text-white leading-snug text-center">{item.title}</p>
+                      {item.description && (
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed text-center">{item.description}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

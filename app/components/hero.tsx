@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="mx-auto max-w-6xl px-4 flex flex-col items-center text-center gap-8 md:gap-12">
 
         {/* TITLE */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">
+        <h1 className="hero-animate hero-animate-1 text-3xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">
           <span className="text-[#f7f9fc]">
             Islamic Finance and Business Forum{" "}
           </span>
@@ -21,7 +21,7 @@ export default function Hero() {
         </h1>
 
         {/* INFO */}
-        <div className="max-w-2xl flex flex-col gap-4 md:gap-6">
+        <div className="hero-animate hero-animate-2 max-w-2xl flex flex-col gap-4 md:gap-6">
           <p className="text-lg sm:text-2xl font-medium">
             {t('date')} <br />
             {t('location')}
@@ -32,7 +32,7 @@ export default function Hero() {
         </div>
 
         {/* ACTIONS */}
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <div className="hero-animate hero-animate-3 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <RegisterButton className="w-full sm:w-auto h-12 sm:h-14 px-8 rounded-xl text-base sm:text-lg font-medium bg-gradient-to-r from-[#2f4fa3] to-[#5fe3e3] shadow-lg hover:opacity-90 transition">
             {t('register')}
           </RegisterButton>

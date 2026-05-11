@@ -10,6 +10,7 @@ const partners = [
     src: "/partners/its.svg",
     alt: "ITS",
     name: "ITS",
+    url: "https://its-world.kz/ru/",
     describeionKz: "ITS — қаржы нарығының өкілі ретінде МФЦА юрисдикциясы аясында жұмыс істейтін халықаралық сауда алаңы. ITS инвесторларға АҚШ, Еуропа және Азияның жетекші компанияларының акциялары сияқты 3 200-ден астам құралдарға қол жеткізу мүмкіндігін ұсынады.\nПлатформаның негізгі өнімдерінің бірі - ITS Shariah ETF - Шариғат принциптеріне сәйкес келетін Орталық Азия мен Кавказдағы алғашқы индекс қоры. Қорға 30 ірі халықаралық компанияның акциялары кіреді.\n2025 жылы ITS индексі АҚШ долларымен 23,6% өсті.",
     descriptionEng:
       "ITS — international trading platform operating under the jurisdiction of the Financial Market Authority. ITS provides investors with access to over 3,200 instruments, including shares of leading companies from the USA, Europe, and Asia.\nOne of the key products of the platform is the ITS Shariah ETF – the first index fund in Central Asia and the Caucasus that complies with Sharia principles. The fund includes shares of 30 of the largest international companies.\nIn 2025, the ITS index showed a growth of 23.6% in US dollars.",
@@ -23,6 +24,7 @@ const partners = [
     srcDark: "/partners/kic-light.png",
     alt: "KIC leasing",
     name: "KIC leasing",
+    url: "https://kic.kz/en/",
     descriptionKz: "KIC — Казахстандағы бірінші исламдық лизинг компаниясы, Шариғат принциптеріне сәйкес жұмыс істейтін. 2013 жылдан бастап компания кішкене және орташа кәсіпкерлерге прозральді және этикалық шарттар бойынша финанстарға қол жеткізу ұсынады.\nKIC исламдық финанстардың дамуында маңызды рөл атқарады, реальный экономиканы күштеп тұтыну үшін сенімді құралдар ұсынады. Компанияның іс-шаралары жоғары технологияны традициялық духовдық мәндермен бірлескен прозральді финансалық экосистеманы дамыта отырады.",
     descriptionEng:
       "KIC — the first leasing company in Kazakhstan operating strictly according to Sharia principles. Since 2013, the company has been providing small and medium-sized businesses with access to financing on transparent and ethical terms.\nKIC plays an important role in the development of Islamic finance, offering reliable tools for strengthening the real economy. The company's activities are focused on developing a transparent financial ecosystem where high technology harmoniously combines with traditional spiritual values.",
@@ -34,17 +36,19 @@ const partners = [
     srcDark: "/partners/alif-light.png",
     alt: "Alif Uzbekistan",
     name: "Alif Uzbekistan",
-    descriptionKz: "Alif Uzbekistan — Орталық Азиядағы ең динамикалық исламдық финтех жобаларының бірі, Тәжікстанда құрылған. Alif инновациялық сандық өнімдері, ыңғайлы мобильді банкингі және исламдық қаржы принциптеріне сәйкес келетін ашық шарттарымен танымал. Өз қызметінде Alif жоғары технологияны рухани және этикалық құндылықтармен үйлестіреді.",
+    url: "https://www.alif.uz/en/",
+    descriptionKz: "Alif — Орталық Азиядағы ең динамикалық исламдық финтех компанияларының бірі, Тәжікстанда құрылған. Alif инновациялық цифрлық өнімдері, ыңғайлы мобильді банкингі және исламдық қаржы принциптеріне сәйкес келетін мөлдір шарттарымен танымал. Өз қызметінде Alif жоғары технологияны рухани және этикалық құндылықтармен үйлесімді түрде біріктіреді.",
     descriptionEng:
-      "Alif Uzbekistan is one of the most dynamic Islamic fintech projects in Central Asia, founded in Tajikistan. Alif is known for its innovative digital products, convenient mobile banking, and transparent terms that comply with the principles of Islamic finance. In its operations, Alif combines high technology with spiritual and ethical values.",
+      "Alif — one of the most dynamic Islamic fintech companies in Central Asia, founded in Tajikistan. Alif is known for its innovative digital products, convenient mobile banking, and transparent terms that comply with Islamic finance principles. In its operations, Alif harmoniously combines high technology with spiritual and ethical values.",
     description:
-      "Alif Uzbekistan — один из самых динамично развивающихся исламских финтех проектов Центральной Азии, основанный в Таджикистане. Alif известен своими инновационными цифровыми продуктами, удобным мобильным банкингом и прозрачными условиями, соответствующими принципам Исламского финансирования. В своей деятельности Alif соединяет высокие технологии с духовными и этическими ценностями.",
+      "Alif — Alif — одна из самых динамично развивающихся исламских финтех-компаний Центральной Азии с проектами в Таджикистане, Узбекистане и Пакистане. Alif известен своими инновационными цифровыми продуктами, удобным мобильным банкингом и прозрачными условиями, соответствующими принципам исламского финансирования. В своей деятельности Alif соединяет высокие технологии с духовными и этическими ценностями.",
   },
   {
     src: "/partners/al-safi-light.svg",
     srcDark: "/partners/al-safi-dark.png",
     alt: "Al Safi Bank",
     name: "Al Safi Bank",
+    url: "http://alsafibank.com/",
     description:
       "Al Safi Bank — первый исламский банк на территории Astana International Financial Centre, предлагающий современные и прозрачные банковские услуги. Банк сочетает клиентоориентированный подход, соответствие стандартам AAOIFI и строгий контроль Шариатского совета. Опытная команда с более чем 20-летней экспертизой обеспечивает надёжность, безопасность и заботу о каждом клиенте, поддерживая финансовое благополучие на всех этапах.",
     descriptionEng:
@@ -57,6 +61,7 @@ const partners = [
     srcDark: "/partners/ailat-light.png",
     alt: "Ailat",
     name: "Ailat",
+    url: "https://ailat.kz/",
     description:
       "Ailat — экосистема исламских финансовых и технологических сервисов, ориентированная на укрепление семейного благосостояния и устойчивое развитие общества. Компания объединяет создание шариат-совместимых финансовых продуктов, экспертный консалтинг и инновации на базе искусственного интеллекта, делая этичные и прозрачные финансовые решения доступными каждому.",
     descriptionEng:
@@ -79,6 +84,7 @@ const partners = [
     src: "/partners/proji.svg",
     alt: "Proji.kz",
     name: "Proji.kz",
+    url: "https://proji.kz/?start=tasks",
     descriptionKz: 'Proji.kz — бұл бизнес жүйесін жүйелеуге арналған AI платформасы, ол коммуникацияларды, құжаттарды, идеяларды және келісімдерді түсінікті тапсырмаларға, аналитикаға және басқару әрекеттеріне айналдыруға көмектеседі. Бұл ақпаратты тек сақтау ғана емес, тәртіп, жылдамдық және өсу үшін пайдаланғысы келетін компанияларға қажет.\n\nSunnet Business Technologies командасы әзірлеген — ол бизнеске нақты тапсырмаларға арналған AI және автоматизацияны енгізуге көмектеседі.',
     descriptionEng:
       "Proji.kz — this is an AI platform for business systematization, which helps transform communications, documents, ideas, and agreements into understandable tasks, analytics, and management actions. It is needed by companies that want to not just store information but use it for order, speed, and growth.\n\nDeveloped by the Sunnet Business Technologies team — which helps businesses implement AI and automation for real-world tasks.",
@@ -112,21 +118,44 @@ const Partners = () => {
               </span>
 
               <div className="flex items-center">
-                <Image
-                  src={partner.src}
-                  alt={partner.alt}
-                  width={176}
-                  height={112}
-                  className={`object-contain h-28 w-44 ${partner.srcDark ? 'dark:hidden' : ''}`}
-                />
-                {partner.srcDark && (
-                  <Image
-                    src={partner.srcDark}
-                    alt={partner.alt}
-                    width={176}
-                    height={112}
-                    className="object-contain h-28 w-44 hidden dark:block"
-                  />
+                {partner.url ? (
+                  <a href={partner.url} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={partner.src}
+                      alt={partner.alt}
+                      width={176}
+                      height={112}
+                      className={`object-contain h-28 w-44 ${partner.srcDark ? 'dark:hidden' : ''}`}
+                    />
+                    {partner.srcDark && (
+                      <Image
+                        src={partner.srcDark}
+                        alt={partner.alt}
+                        width={176}
+                        height={112}
+                        className="object-contain h-28 w-44 hidden dark:block"
+                      />
+                    )}
+                  </a>
+                ) : (
+                  <>
+                    <Image
+                      src={partner.src}
+                      alt={partner.alt}
+                      width={176}
+                      height={112}
+                      className={`object-contain h-28 w-44 ${partner.srcDark ? 'dark:hidden' : ''}`}
+                    />
+                    {partner.srcDark && (
+                      <Image
+                        src={partner.srcDark}
+                        alt={partner.alt}
+                        width={176}
+                        height={112}
+                        className="object-contain h-28 w-44 hidden dark:block"
+                      />
+                    )}
+                  </>
                 )}
               </div>
 

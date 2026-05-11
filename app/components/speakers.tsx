@@ -110,8 +110,6 @@ const initialSpeakers: Speaker[] = [
 
 ]
 
-
-
 const moreSpeakers: Speaker[] = [
   {
     img: "/speakers/aya.png",
@@ -139,6 +137,51 @@ const moreSpeakers: Speaker[] = [
     role: "Член Правления, Главный директор по рискам и ИТ Al Safi Bank Ltd.",
     roleEng: "Board Member, Chief Risk and IT Officer at Al Safi Bank Ltd.",
     roleKz: "Al Safi Bank Ltd. компаниясының Правление мүшесі, және Қауіптеушілік және ИТ бас директоры",
+  },
+      {
+    img: "/speakers/laf.jpeg",
+    name: "Нуриддин Лафизов",
+    nameEng: "Nuriddin Lafizov",
+    country: "Uzbekistan",
+    role: "Генеральный директор, Alif",
+    roleEng: "Chief Executive Officer, Alif",
+    roleKz: "Alif компаниясының Бас директоры",
+  },
+      {
+    img: "/speakers/tog.jpg",
+    name: "Еркебулан Тогузбаев",
+    nameEng: "Erkebulan Toguzbaev",
+    country: "Kazakhstan",
+    role: "Руководитель управления по развитию партнерских отношений с международными участниками ITS",
+    roleEng: "Head of International Participant Relations Development Department, ITS",
+    roleKz: "ITS халықаралық қатысушыларымен серіктестік қатынастарды дамыту басқармасының басшысы",
+  },
+      {
+    img: "/speakers/bah.jpg",
+    name: "Бахтияр Тлеубеков",
+    nameEng: "Bakhtiar Tleubekov",
+    country: "Kazakhstan",
+    role: "Председатель Правления, АO 'Администрация Международного финансового центра Астана'",
+    roleEng: "Chairman of the Board, JSC 'Administration of the Astana International Financial Centre'",
+    roleKz: "Басқарма Төрағасы 'Астана халықаралық қаржы орталығының әкімшілігі' АK",
+  },
+      {
+    img: "/speakers/tok.jpeg",
+    name: "Санжар Токмурзин",
+    nameEng: "Sanjar Tokmurzin",
+    country: "Kazakhstan",
+    role: "Директор департамента пруденциального регулирования Комитета по регулированию финансовых услуг МФЦА",
+    roleEng: "Director of the Prudential Regulation Department of the AIFC Financial Services Regulatory Committee",
+    roleKz: "AIFC Қаржы қызметтерін реттеу комитетінің пруденциальдық реттеу департаментінің директоры",
+  },
+      {
+    img: "/speakers/far.jpg",
+    name: "Mohammad Farrukh Raza",
+    nameEng: "Mohammad Farrukh Raza",
+    country: "United Kingdom",
+    role: "Основатель и Председатель, IFAAS (Islamic Finance Advisory & Assurance Services)",
+    roleEng: "Founder and Chairman, IFAAS (Islamic Finance Advisory & Assurance Services)",
+    roleKz: "IFAAS (Islamic Finance Advisory & Assurance Services) компаниясының негізін қалаушы және төрағасы",
   },
 
 ]
