@@ -1,201 +1,94 @@
-# Backend API Contract — IFBF 2026
+# Новая фича: роль Worker + поле visited
 
-Фронтенд на Next.js. Все запросы к внешнему бэкенду проксируются через Next.js API Routes.  
-Base URL задаётся переменной окружения: `NEXT_PUBLIC_API_URL=https://api.your-backend.com`  
-Если переменная пустая или равна `mock` — используется локальная in-memory БД (только для dev).
+## Что это
 
-Авторизация запросов к бэкенду: `X-API-Key: <BACKEND_API_KEY>`
+На форуме появились **воркеры** — сотрудники/волонтёры, которые стоят на входе и сканируют QR-коды участников. При успешном скане участник получает флаг `visited: "yes"`.
 
----
-
-## Роли пользователей
-
-| Роль     | Описание                                                  | Где задаётся          |
-|----------|-----------------------------------------------------------|-----------------------|
-| `user`   | Обычный участник форума                                   | По умолчанию          |
-| `admin`  | Доступ к панели управления участниками                    | `ADMIN_EMAILS` в env  |
-| `worker` | Волонтёр/сотрудник — отмечает посещения через QR-сканер  | `WORKER_EMAILS` в env |
-
-Роли определяются на фронтенде по email при логине — бэкенд хранить роль **не обязан**.
+Роли определяются на фронте по email через env-переменные — бэкенд роль **не хранит и не знает о ней**.
 
 ---
 
-## Эндпоинты
+## Что нужно от бэкенда
 
-### POST `/api/register`
+### 1. Новое поле `visited` на модели пользователя
 
-Регистрация нового участника.
-
-**Body:**
-```json
-{
-  "name":          "Иван",
-  "surname":       "Иванов",
-  "email":         "ivan@example.com",
-  "phone":         "+7 700 000 00 00",
-  "password":      "secret",
-  "agreePersonal": true,
-  "org":           "ТОО Компания",
-  "position":      "Директор",
-  "scope":         "Исламские финансы",
-  "country":       "Kazakhstan",
-  "city":          "Алматы",
-  "lang":          "ru",
-  "qrPayload":     "IFBF2026:550e8400-e29b-41d4-a716-446655440000"
-}
+```
+visited: "none" | "yes"
 ```
 
-> `qrPayload` генерируется фронтендом в формате `IFBF2026:{uuid}`.  
-> Бэкенд **обязан сохранить** его — он используется для валидации при сканировании бейджей.
+- **По умолчанию:** `"none"` — проставляется при регистрации
+- **После скана:** `"yes"` — проставляется фронтом через PATCH-запрос
 
-**Response 201:**
-```json
-{ "id": "string", "name": "string", "email": "string" }
-```
-
-**Response 409:** email уже занят  
-**Response 4xx:** `{ "message": "string" }`
+Поле должно возвращаться во всех ответах, где есть объект пользователя (`GET /api/users`, `GET /api/me`, `POST /api/login`).
 
 ---
 
-### POST `/api/login`
+### 2. Поиск пользователя по `qrPayload`
 
-**Body:**
-```json
-{ "email": "ivan@example.com", "password": "secret" }
+Когда воркер сканирует QR-код, фронт получает строку вида `IFBF2026:{uuid}` и ищет пользователя по ней.
+
 ```
+GET /api/users?qrPayload=IFBF2026:550e8400-e29b-41d4-a716-446655440000
+```
+
+**Нужно:** поддержать фильтрацию по полю `qrPayload` в этом эндпоинте.
 
 **Response 200:**
 ```json
 {
-  "token": "jwt-or-session-token",
-  "user": {
-    "id":         "string",
-    "name":       "string",
-    "surname":    "string",
-    "email":      "string",
-    "phone":      "string",
-    "org":        "string",
-    "position":   "string",
-    "qrPayload":  "IFBF2026:uuid",
-    "visited":    "none"
-  }
+  "users": [
+    {
+      "id": "123",
+      "name": "Иван",
+      "surname": "Иванов",
+      "qrPayload": "IFBF2026:550e8400-e29b-41d4-a716-446655440000",
+      "visited": "none"
+    }
+  ],
+  "total": 1
 }
 ```
 
-**Response 401:** неверный email или пароль
+Если пользователь не найден — вернуть пустой массив `"users": []`.
 
 ---
 
-### GET `/api/me`
+### 3. PATCH для отметки посещения
 
-Получить профиль текущего пользователя.
-
-**Headers:** `Authorization: Bearer <token>`
-
-**Response 200:** объект `UserProfile` (см. выше)
-
----
-
-### GET `/api/users`
-
-Список всех пользователей (только для admin).
-
-**Query params:**
-- `limit` — количество записей (по умолчанию 10000)
-- `page` — страница
-- `per_page` — записей на страницу
-- `qrPayload` — фильтр по qrPayload (используется при сканировании)
-
-**Headers:** `X-API-Key: <BACKEND_API_KEY>`
-
-**Response 200:**
-```json
-{
-  "users": [ ...UserProfile[] ],
-  "total": 42
-}
 ```
+PATCH /api/users/:id
+X-API-Key: <BACKEND_API_KEY>
+Content-Type: application/json
 
----
-
-### PATCH `/api/users/:id`
-
-Обновить данные пользователя. Используется воркером для отметки посещения.
-
-**Headers:** `X-API-Key: <BACKEND_API_KEY>`
-
-**Body:**
-```json
 { "visited": "yes" }
 ```
 
-**Response 200:** обновлённый `UserProfile`  
+**Response 200:** любой успешный ответ (тело не используется фронтом)  
 **Response 404:** пользователь не найден
 
 ---
 
-### DELETE `/api/users/:id`
+## Как это работает на фронте (для понимания)
 
-Удалить пользователя (только для admin).
-
-**Headers:** `X-API-Key: <BACKEND_API_KEY>`
-
-**Response 200:** `{ "message": "ok" }`
-
----
-
-### DELETE `/api/users` (bulk)
-
-Удалить всех пользователей.
-
-**Headers:** `X-API-Key: <BACKEND_API_KEY>`
-
-**Response 200:** `{ "message": "ok" }`
-
----
-
-## Поле `visited`
-
-| Значение | Смысл                              |
-|----------|------------------------------------|
-| `"none"` | Участник ещё не отметился (дефолт) |
-| `"yes"`  | Участник отсканировал бейдж        |
-
-Поле выставляется через `PATCH /api/users/:id` с `{ "visited": "yes" }`.  
-Поиск пользователя при скане идёт через `GET /api/users?qrPayload=IFBF2026:uuid`.
-
----
-
-## UserProfile (полный объект)
-
-```ts
-{
-  id:         string | number
-  name:       string
-  surname?:   string
-  email:      string
-  phone?:     string
-  org?:       string
-  position?:  string
-  scope?:     string
-  country?:   string
-  city?:      string
-  lang?:      string          // "ru" | "en" | "kz"
-  qrPayload?: string          // "IFBF2026:{uuid}"
-  visited?:   "none" | "yes"
-}
+```
+Воркер наводит камеру на бейдж участника
+        ↓
+Камера считывает строку: "IFBF2026:550e8400-..."
+        ↓
+POST /api/worker/scan  { qrPayload: "IFBF2026:550e8400-..." }
+        ↓ (Next.js API route делает два запроса к бэкенду)
+GET /api/users?qrPayload=IFBF2026:550e8400-...   → находит user.id
+PATCH /api/users/:id  { visited: "yes" }          → отмечает посещение
+        ↓
+Воркер видит уведомление: "Успешно посетил: Иван Иванов"
 ```
 
+Повторный скан того же QR в течение 3 секунд игнорируется на уровне фронта.
+
 ---
 
-## Переменные окружения (фронтенд)
+## Что НЕ нужно делать на бэкенде
 
-| Переменная              | Описание                                              |
-|-------------------------|-------------------------------------------------------|
-| `NEXT_PUBLIC_API_URL`   | Base URL бэкенда. Пусто или `mock` → dev-режим       |
-| `BACKEND_API_KEY`       | Ключ для server-to-server запросов (`X-API-Key`)      |
-| `NEXTAUTH_SECRET`       | Секрет для подписи JWT (openssl rand -base64 32)      |
-| `NEXTAUTH_URL`          | Публичный URL сайта (для продакшена)                  |
-| `ADMIN_EMAILS`          | Через запятую — emails с ролью admin                  |
-| `WORKER_EMAILS`         | Через запятую — emails с ролью worker                 |
+- Хранить роли (`admin`, `worker`, `user`) — это только на фронте
+- Создавать отдельный эндпоинт для воркеров — всё идёт через существующие `/api/users`
+- Валидировать формат `qrPayload` — просто хранить как строку
