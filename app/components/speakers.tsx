@@ -138,16 +138,7 @@ const moreSpeakers: Speaker[] = [
     roleEng: "Board Member, Chief Risk and IT Officer at Al Safi Bank Ltd.",
     roleKz: "Al Safi Bank Ltd. компаниясының Правление мүшесі, және Қауіптеушілік және ИТ бас директоры",
   },
-      {
-    img: "/speakers/laf.jpeg",
-    name: "Нуриддин Лафизов",
-    nameEng: "Nuriddin Lafizov",
-    country: "Uzbekistan",
-    role: "Генеральный директор, Alif",
-    roleEng: "Chief Executive Officer, Alif",
-    roleKz: "Alif компаниясының Бас директоры",
-  },
-      {
+{
     img: "/speakers/tog.jpg",
     name: "Еркебулан Тогузбаев",
     nameEng: "Erkebulan Toguzbaev",
@@ -242,9 +233,12 @@ const Speakers = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-8">
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-8">
           {initialSpeakers.map((speaker, i) => (
-            <div key={i} className={!expanded && i >= 4 ? "hidden sm:block" : ""}>
+            <div
+              key={i}
+              className={`w-[calc(50%-10px)] sm:w-[calc(33.333%-14px)] md:w-[calc(25%-15px)] lg:w-[calc(20%-16px)]${!expanded && i >= 4 ? " hidden sm:block" : ""}`}
+            >
               <SpeakerCard speaker={speaker} locale={locale} />
             </div>
           ))}

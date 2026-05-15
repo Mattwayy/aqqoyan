@@ -33,6 +33,7 @@ export async function POST(req: Request) {
         org, position, scope, country, city, lang,
         _password: password,
         qrPayload,
+        visited: 'none',
       })
 
       sendWelcomeEmail({ email, name, surname, lang: lang ?? 'ru' })

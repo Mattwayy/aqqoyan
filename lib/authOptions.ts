@@ -6,6 +6,15 @@ import { getUserByEmail } from '@/app/lib/serverDb'
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '')
 const IS_MOCK  = !BASE_URL || BASE_URL === 'mock'
 
+function getRole(email: string): 'admin' | 'worker' | 'user' {
+  const norm = email.toLowerCase()
+  const adminEmails = (process.env.ADMIN_EMAILS ?? '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean)
+  const workerEmails = (process.env.WORKER_EMAILS ?? '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean)
+  if (adminEmails.includes(norm)) return 'admin'
+  if (workerEmails.includes(norm)) return 'worker'
+  return 'user'
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -34,6 +43,7 @@ export const authOptions: NextAuthOptions = {
             position:   user.position,
             qrPayload:  user.qrPayload,
             lang:       lang ?? 'en',
+            role:       getRole(email),
           }
         }
 
@@ -59,6 +69,7 @@ export const authOptions: NextAuthOptions = {
             position:  u.position  ?? '',
             qrPayload: u.qrPayload ?? `IFBF2026:${u.id}`,
             lang:      lang ?? u.lang ?? 'en',
+            role:      getRole(email),
           }
         } catch (err) {
           console.error('[authorize] backend error:', err)
@@ -87,6 +98,7 @@ export const authOptions: NextAuthOptions = {
         token.position  = user.position
         token.qrPayload = user.qrPayload
         token.lang      = (user as { lang?: string }).lang ?? 'ru'
+        token.role      = user.role ?? 'user'
       }
       return token
     },
@@ -98,6 +110,7 @@ export const authOptions: NextAuthOptions = {
         session.user.org       = token.org
         session.user.position  = token.position
         session.user.qrPayload = token.qrPayload
+        session.user.role      = token.role
       }
       return session
     },

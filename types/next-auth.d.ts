@@ -9,6 +9,7 @@ declare module 'next-auth' {
     org?:       string
     position?:  string
     qrPayload?: string
+    role?:      'admin' | 'worker' | 'user'
   }
 
   interface Session {
@@ -19,6 +20,7 @@ declare module 'next-auth' {
       org?:       string
       position?:  string
       qrPayload?: string
+      role?:      'admin' | 'worker' | 'user'
     } & DefaultSession['user']
   }
 }
@@ -31,5 +33,6 @@ declare module 'next-auth/jwt' {
     org?:       string
     position?:  string
     qrPayload?: string
+    role?:      'admin' | 'worker' | 'user'
   }
 }

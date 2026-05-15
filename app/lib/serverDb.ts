@@ -20,6 +20,7 @@ export interface StoredUser {
   comment?:  string
   _password: string
   qrPayload: string   // IFBF2026:{uuid}  — отправляется бэкенду при регистрации
+  visited:   'none' | 'yes'
 }
 
 const users = new Map<string, StoredUser>()
@@ -35,9 +36,24 @@ export function getUserById(id: string): StoredUser | null {
   return users.get(id) ?? null
 }
 
+export function getUserByQrPayload(qrPayload: string): StoredUser | null {
+  for (const user of users.values()) {
+    if (user.qrPayload === qrPayload) return user
+  }
+  return null
+}
+
+export function markVisited(id: string): StoredUser | null {
+  const user = users.get(id)
+  if (!user) return null
+  user.visited = 'yes'
+  users.set(id, user)
+  return user
+}
+
 export function createUser(data: Omit<StoredUser, 'id'>): StoredUser {
   const id   = crypto.randomUUID()
-  const user: StoredUser = { id, ...data }
+  const user: StoredUser = { ...data, id }
   users.set(id, user)
   return user
 }

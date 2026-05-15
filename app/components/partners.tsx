@@ -34,14 +34,14 @@ const partners = [
   {
     src: "/partners/alif.svg",
     srcDark: "/partners/alif-light.png",
-    alt: "Alif Uzbekistan",
-    name: "Alif Uzbekistan",
+    alt: "Alif",
+    name: "Alif",
     url: "https://www.alif.uz/en/",
-    descriptionKz: "Alif — Орталық Азиядағы ең динамикалық исламдық финтех компанияларының бірі, Тәжікстанда құрылған. Alif инновациялық цифрлық өнімдері, ыңғайлы мобильді банкингі және исламдық қаржы принциптеріне сәйкес келетін мөлдір шарттарымен танымал. Өз қызметінде Alif жоғары технологияны рухани және этикалық құндылықтармен үйлесімді түрде біріктіреді.",
+    descriptionKz: "Alif — Орталық Азиядағы ең динамикалық исламдық финтех компанияларының бірі, Тәжікстанда, Өзбекстанда және Пәкістанда жобалары бар. Alif инновациялық цифрлық өнімдері, ыңғайлы мобильді банкингі және исламдық қаржы принциптеріне сәйкес келетін мөлдір шарттарымен танымал. Өз қызметінде Alif жоғары технологияны рухани және этикалық құндылықтармен үйлесімді түрде біріктіреді.",
     descriptionEng:
-      "Alif — one of the most dynamic Islamic fintech companies in Central Asia, founded in Tajikistan. Alif is known for its innovative digital products, convenient mobile banking, and transparent terms that comply with Islamic finance principles. In its operations, Alif harmoniously combines high technology with spiritual and ethical values.",
+      "Alif — one of the most dynamic Islamic fintech companies in Central Asia, with projects in Tajikistan, Uzbekistan, and Pakistan. Alif is known for its innovative digital products, convenient mobile banking, and transparent terms that comply with Islamic finance principles. In its operations, Alif harmoniously combines high technology with spiritual and ethical values.",
     description:
-      "Alif — Alif — одна из самых динамично развивающихся исламских финтех-компаний Центральной Азии с проектами в Таджикистане, Узбекистане и Пакистане. Alif известен своими инновационными цифровыми продуктами, удобным мобильным банкингом и прозрачными условиями, соответствующими принципам исламского финансирования. В своей деятельности Alif соединяет высокие технологии с духовными и этическими ценностями.",
+      "Alif — одна из самых динамично развивающихся исламских финтех-компаний Центральной Азии с проектами в Таджикистане, Узбекистане и Пакистане. Alif известен своими инновационными цифровыми продуктами, удобным мобильным банкингом и прозрачными условиями, соответствующими принципам исламского финансирования. В своей деятельности Alif соединяет высокие технологии с духовными и этическими ценностями.",
   },
   {
     src: "/partners/al-safi-light.svg",
@@ -81,6 +81,19 @@ const partners = [
      "Компания Money предлагает скоринговые решения для банков, МФО и финансовых организаций — оценка клиентов, снижение рисков, цифровизация процессов. Наши решения также применимы для участников рынка исламского финансирования, в том числе для автоматизации проверок на соответствие его принципам."
   },
   {
+    src: "/partners/tabys-dark.svg",
+    srcDark: "/partners/tabys-light.svg",
+    alt: "Tabys",
+    name: "Tabys",
+    url: "https://tabys.pro/",
+    description:
+      "Tabys Pro — современное инвестиционное приложение, объединяющее доступ к глобальным рынкам, удобный пользовательский интерфейс и интеллектуальные инструменты для принятия инвестиционных решений. В приложении доступны акции международных компаний от 1$, облигации, ETF и другие инструменты, адаптированные как для начинающих, так и для опытных инвесторов.",
+    descriptionEng:
+      "Tabys Pro is a modern investment application combining access to global markets, a user-friendly interface, and intelligent tools for making investment decisions. The app offers shares of international companies from $1, bonds, ETFs, and other instruments, tailored for both beginners and experienced investors.",
+    descriptionKz:
+      "Tabys Pro — жаһандық нарықтарға қол жеткізуді, ыңғайлы интерфейсті және инвестициялық шешімдер қабылдауға арналған интеллектуалды құралдарды біріктіретін заманауи инвестициялық қолданба. Қолданбада халықаралық компаниялардың 1$-дан бастап акциялары, облигациялар, ETF және басқа да құралдар қолжетімді, жаңадан бастаушылар мен тәжірибелі инвесторларға бейімделген.",
+  },
+  {
     src: "/partners/proji.svg",
     alt: "Proji.kz",
     name: "Proji.kz",
@@ -109,7 +122,7 @@ const Partners = () => {
             <div
               key={partner.alt}
               className={`flex flex-col gap-5 rounded-2xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 p-8 shadow-sm dark:shadow-slate-900/50 ${
-                index === partners.length - 1 ? 'last-col' : ''
+                index === partners.length - 1 && partners.length % 2 !== 0 ? 'last-col' : ''
               }`}
             > 
           

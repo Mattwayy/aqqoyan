@@ -14,6 +14,7 @@ interface UserRow {
   city?:     string
   lang?:     string
   qrPayload: string
+  visited?:  'none' | 'yes'
 }
 
 export default function AdminPanel() {
@@ -191,6 +192,7 @@ export default function AdminPanel() {
                 <th className="pb-3 pr-4 font-medium">Организация</th>
                 <th className="pb-3 pr-4 font-medium">Страна</th>
                 <th className="pb-3 pr-4 font-medium">Язык</th>
+                <th className="pb-3 pr-4 font-medium">Посещение</th>
                 <th className="pb-3 font-medium"></th>
               </tr>
             </thead>
@@ -207,6 +209,18 @@ export default function AdminPanel() {
                     <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 uppercase">
                       {u.lang ?? '—'}
                     </span>
+                  </td>
+                  <td className="py-3 pr-4">
+                    {u.visited === 'yes' ? (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Да
+                      </span>
+                    ) : (
+                      <span className="text-slate-400 dark:text-slate-500 text-xs">—</span>
+                    )}
                   </td>
                   <td className="py-3">
                     <button

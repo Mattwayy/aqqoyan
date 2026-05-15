@@ -29,6 +29,7 @@ const COLUMNS: { key: string; label: string }[] = [
   { key: 'city',     label: 'Город'        },
   { key: 'lang',     label: 'Язык'         },
   { key: 'qrPayload',label: 'QR-код'       },
+  { key: 'visited',  label: 'Посещение'   },
 ]
 
 export async function GET() {
